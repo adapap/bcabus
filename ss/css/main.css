@@ -12,13 +12,16 @@ html {
 	margin-left: -16vw;
 }
 */
+@media screen only and (max-width: 1000px) {
+  body {
+    width: 1000px; } }
 * {
   font-family: 'Aktiv Grotesk', sans-serif;
   -webkit-font-smoothing: antialiased; }
 
 .cool {
-  background-image: url("/assets/Pattern.svg");
-  background-position: center; }
+  background-image: url("../../assets/Pattern.svg");
+  background-position: center center; }
 
 .margin-right--xsmall {
   margin-right: 16px; }
