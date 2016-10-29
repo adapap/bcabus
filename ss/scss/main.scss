@@ -1,0 +1,801 @@
+body {
+	margin: 0;
+}
+
+html {
+	background-color: #F3F5F7;
+}
+
+$colorBlue: #38497C;
+$colorDarkGray: #576B82;
+// 5882FF
+$colorGray: #556778;
+$colorPurple: #5882FF;
+$colorWhite: #FFFFFF;
+::selection {
+	background-color: #12A2FF;
+}
+
+
+/*
+.main-header {
+	margin-left: -16vw;
+}
+*/
+@media screen only and (max-width: 1000px) {
+	body {
+		width: 1000px;
+	}
+}
+
+* {
+	font-family: 'Aktiv Grotesk', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+// Mixins
+// Sets the color for each section
+@mixin sectionColor ($colorName, $color) {
+	/* Sets the color as #{$colorName} */
+	.section--#{$colorName} {
+		background-color: $color;
+	}
+}
+
+@mixin transition($properties, $easing, $timing) {
+	-webkit-transition: $properties $easing $timing;
+	-moz-transition: $properties $easing $timing;
+	-o-transition: $properties $easing $timing;
+	transition: $properties $easing $timing;
+}
+
+// Sets the color for text
+@mixin textColor ($colorName, $color) {
+	.text--#{$colorName} {
+		color: $color;
+		a {
+			@include transition(all, ease-in-out, 0.2s);
+		}
+		a:hover {
+			opacity: 0.6;
+		}
+	}
+}
+
+// Sets the font sizes for texts
+@mixin fontSize ($fontSizeName, $fontSize, $fontWeight) {
+	/* Sets Font Size for #{$fontSizeName} */
+	.text--#{$fontSizeName} {
+		font-size: $fontSize;
+		font-weight: $fontWeight;
+		margin: 0;
+		line-height: $fontSize * 1.32;
+	}
+}
+
+.cool {
+	background-image: url("../../assets/Pattern.svg");
+	background-position: center center;
+}
+
+.margin-right--xsmall {
+	margin-right: 16px;
+}
+
+.opacity--mid {
+	opacity: 0.5;
+}
+
+.margin-right--small {
+	margin-right: 32px;
+}
+
+.section_full {
+	width: 100vw;
+	height: 100vh;
+}
+
+.section--half {
+	position: relative;
+	width: 50vw;
+	height: 100vh;
+	float: left;
+}
+
+.hidden {
+	overflow: hidden;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+a {
+	color: inherit;
+}
+
+a:link {
+	color: inherit;
+	text-decoration: none;
+}
+
+@include sectionColor(pink,
+#FF5EAE);
+@include sectionColor(blue,
+$colorBlue);
+@include sectionColor(green,
+#69C6AA);
+@include sectionColor(gray,
+#F3F5F7);
+@include textColor(white,
+#FFFFFF);
+@include textColor(dark-gray,
+$colorDarkGray);
+@include textColor(blue,
+$colorBlue);
+@include textColor(gray,
+$colorGray);
+@include textColor(purple,
+$colorPurple);
+@include fontSize(header,
+32px,
+400);
+@include fontSize(title,
+24px,
+400);
+@include fontSize(body,
+18px,
+400);
+.text-white--opacity {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.text-gray--opacity {
+	color: rgba($colorGray, 0.7);
+}
+
+.button {
+	padding: 10px;
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 12px;
+	font-kerning: normal;
+	letter-spacing: 0.24px;
+	border-radius: 6px;
+	@include transition(all,
+	ease-in-out,
+	0.2s);
+}
+
+section {
+	overflow: hidden;
+}
+
+.section {
+	overflow: hidden;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.opacity-none {
+	opacity: 0;
+}
+
+.button:focus {
+	outline: none;
+}
+
+.statement-block {
+	width: 50%;
+}
+
+.button--light {
+	color: #FFFFFF;
+	background-color: transparent;
+	border-color: rgba(255, 255, 255, 0.3);
+	border-style: solid;
+	border-width: 2px;
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.2);
+	}
+}
+
+.button--dark {
+	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 2px;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+}
+
+.button--purple {
+	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 2px;
+	background-color: $colorPurple;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+}
+
+.launch--login {
+	position: absolute;
+	right: 8vw;
+	z-index: 999;
+	margin: 0;
+}
+
+html {
+	background-color: #F3F5F7;
+}
+
+$colorBlue: #38497C;
+$colorDarkGray: #576B82;
+// 5882FF
+$colorGray: #556778;
+$colorPurple: #5882FF;
+$colorWhite: #FFFFFF;
+::selection {
+	background-color: #12A2FF;
+}
+
+
+/*
+.main-header {
+	margin-left: -16vw;
+}
+*/
+
+* {
+	font-family: 'Aktiv Grotesk', sans-serif;
+	-webkit-font-smoothing: antialiased;
+}
+
+// Mixins
+// Sets the color for each section
+@mixin sectionColor ($colorName,
+$color) {
+	/* Sets the color as #{$colorName} */
+	.section--#{$colorName} {
+		background-color: $color;
+	}
+}
+
+@mixin transition($properties,
+$easing,
+$timing) {
+	-webkit-transition: $properties $easing $timing;
+	-moz-transition: $properties $easing $timing;
+	-o-transition: $properties $easing $timing;
+	transition: $properties $easing $timing;
+}
+
+// Sets the color for text
+@mixin textColor ($colorName,
+$color) {
+	.text--#{$colorName} {
+		color: $color;
+		a {
+			@include transition(all,
+			ease-in-out,
+			0.2s);
+		}
+		a:hover {
+			opacity: 0.6;
+		}
+	}
+}
+
+// Sets the font sizes for texts
+@mixin fontSize ($fontSizeName,
+$fontSize,
+$fontWeight) {
+	/* Sets Font Size for #{$fontSizeName} */
+	.text--#{$fontSizeName} {
+		font-size: $fontSize;
+		font-weight: $fontWeight;
+		margin: 0;
+		line-height: $fontSize * 1.32;
+	}
+}
+
+.cool {
+	background-image: url('/assets/Pattern.svg');
+	background-position: center;
+}
+
+.margin-right--xsmall {
+	margin-right: 16px;
+}
+
+.opacity--mid {
+	opacity: 0.5;
+}
+
+.margin-right--small {
+	margin-right: 32px;
+}
+
+.section_full {
+	width: 100vw;
+	height: 100vh;
+}
+
+.section--half {
+	position: relative;
+	width: 50vw;
+	height: 100vh;
+	float: left;
+}
+
+.hidden {
+	overflow: hidden;
+}
+
+.flex-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+a {
+	color: inherit;
+}
+
+a:link {
+	color: inherit;
+	text-decoration: none;
+}
+
+@include sectionColor(pink,
+#FF5EAE);
+@include sectionColor(blue,
+$colorBlue);
+@include sectionColor(gray,
+#F3F5F7);
+@include textColor(white,
+#FFFFFF);
+@include textColor(dark-gray,
+$colorDarkGray);
+@include textColor(blue,
+$colorBlue);
+@include textColor(gray,
+$colorGray);
+@include textColor(purple,
+$colorPurple);
+@include fontSize(header,
+32px,
+400);
+@include fontSize(title,
+24px,
+400);
+@include fontSize(body,
+18px,
+400);
+.text-white--opacity {
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.text-gray--opacity {
+	color: rgba($colorGray, 0.7);
+}
+
+.button {
+	padding: 10px;
+	text-transform: uppercase;
+	font-weight: 600;
+	font-size: 12px;
+	font-kerning: normal;
+	letter-spacing: 0.24px;
+	border-radius: 6px;
+	@include transition(all,
+	ease-in-out,
+	0.2s);
+}
+
+section {
+	overflow: hidden;
+}
+
+.section {
+	overflow: hidden;
+}
+
+.absolute {
+	position: absolute;
+}
+
+.opacity-none {
+	opacity: 0;
+}
+
+.button:focus {
+	outline: none;
+}
+
+.statement-block {
+	width: 50%;
+}
+
+.button--light {
+	color: #FFFFFF;
+	background-color: transparent;
+	border-color: rgba(255, 255, 255, 0.3);
+	border-style: solid;
+	border-width: 2px;
+	&:hover {
+		background-color: rgba(255, 255, 255, 0.2);
+	}
+}
+
+.button--dark {
+	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 2px;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+}
+
+.button--purple {
+	color: #FFFFFF;
+	background-color: rgba(0, 0, 0, 0.1);
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 2px;
+	background-color: $colorPurple;
+	&:hover {
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+}
+
+.launch--login {
+	position: absolute;
+	right: 8vw;
+	top: 8vh;
+}
+
+.text--bold {
+	font-weight: bold;
+}
+
+.lightDivider {
+	background-color: none;
+	border-top: none;
+	border-bottom: solid 2px rgba(#FFFFFF, 0.2);
+	border-right: none;
+	border-left: none;
+}
+
+.darkDivider {
+	background-color: none;
+	border-top: none;
+	border-bottom: solid 2px rgba(#000000, 0.1);
+	border-right: none;
+	border-left: none;
+}
+
+.text--caps {
+	text-transform: uppercase;
+}
+
+ul {}
+
+.block {
+	display: block;
+}
+
+.logo {
+	display: block;
+}
+
+img {
+	margin: 0;
+}
+
+.width--full {
+	width: 100%;
+}
+
+.page-padding--small {
+	padding-left: 10vw;
+	padding-right: 10vw;
+}
+
+.page-margin--small {
+	margin-left: 10vw;
+	margin-right: 10vw;
+}
+
+.logo--medium {
+	width: 128px;
+	float: left;
+}
+
+.logo--small {
+	width: 80px;
+	float: left;
+}
+
+table {
+	padding-top: 64px;
+	padding-bottom: 64px;
+}
+
+.block--center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+tr {
+	display: flex;
+}
+
+td {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+	padding: 32px;
+}
+
+td:nth-of-type(odd) {
+	border-right: 2px solid rgba($colorWhite, 0.2);
+}
+
+.margin-top--small {
+	margin-top: 32px;
+}
+
+.margin-top--xsmall {
+	margin-top: 16px;
+}
+
+.margin-bottom--small {
+	margin-bottom: 32px;
+}
+
+.margin-bottom--xsmall {
+	margin-bottom: 16px;
+}
+
+.width-3 {
+	width: calc(100vw / 2.5);
+}
+
+.footer--extended {
+	margin: 0;
+}
+
+.footer {
+	padding: 32px;
+}
+
+.light-border--top {
+	border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-vertical--center {
+	align-items: center;
+}
+
+.flex-space-between {
+	justify-content: space-between;
+}
+
+ul {
+	margin: 0;
+	list-style: none;
+	display: flex;
+}
+
+li {
+	margin-left: 16px;
+	color: white;
+	margin-bottom: 0;
+}
+
+.bg--blue {
+	background-color: #3B4767;
+}
+
+.border--dark {
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 2px;
+}
+
+#leaderboard-illustration {
+	position: absolute;
+	top: 16vh;
+	left: 10vw;
+	width: 64vw;
+	transform: rotateZ(6deg);
+}
+
+// 6 width grid
+@mixin gridSize($columnNumber,
+$columnWidth) {
+	top: 8vh;
+}
+
+.text--bold {
+	font-weight: bold;
+}
+
+.lightDivider {
+	background-color: none;
+	border-top: none;
+	border-bottom: solid 2px rgba(#FFFFFF, 0.2);
+	border-right: none;
+	border-left: none;
+}
+
+.darkDivider {
+	background-color: none;
+	border-top: none;
+	border-bottom: solid 2px rgba(#000000, 0.1);
+	border-right: none;
+	border-left: none;
+}
+
+.text--caps {
+	text-transform: uppercase;
+}
+
+ul {}
+
+.block {
+	display: block;
+}
+
+.logo {
+	display: block;
+}
+
+img {
+	margin: 0;
+}
+
+.width--full {
+	width: 100%;
+}
+
+.page-padding--small {
+	padding-left: 10vw;
+	padding-right: 10vw;
+}
+
+.page-margin--small {
+	margin-left: 10vw;
+	margin-right: 10vw;
+}
+
+.logo--medium {
+	width: 128px;
+	float: left;
+}
+
+.logo--small {
+	width: 80px;
+	float: left;
+}
+
+table {
+	padding-top: 64px;
+	padding-bottom: 64px;
+}
+
+.block--center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+tr {
+	display: flex;
+}
+
+td {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+	align-items: center;
+	padding: 32px;
+}
+
+td:nth-of-type(odd) {
+	border-right: 2px solid rgba($colorWhite, 0.2);
+}
+
+.margin-top--small {
+	margin-top: 32px;
+}
+
+.margin-top--xsmall {
+	margin-top: 16px;
+}
+
+.margin-bottom--small {
+	margin-bottom: 32px;
+}
+
+.margin-bottom--xsmall {
+	margin-bottom: 16px;
+}
+
+.width-3 {
+	width: calc(100vw / 2.5);
+}
+
+.footer--extended {
+	margin: 0;
+}
+
+.footer {
+	padding: 32px;
+}
+
+.light-border--top {
+	border-top: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.flex {
+	display: flex;
+}
+
+.flex-vertical--center {
+	align-items: center;
+}
+
+.flex-space-between {
+	justify-content: space-between;
+}
+
+ul {
+	margin: 0;
+	list-style: none;
+	display: flex;
+}
+
+li {
+	margin-left: 16px;
+	color: white;
+	margin-bottom: 0;
+}
+
+.bg--blue {
+	background-color: #3B4767;
+}
+
+.border--dark {
+	border-color: rgba(0, 0, 0, 0.2);
+	border-style: solid;
+	border-width: 2px;
+}
+
+#leaderboard-illustration {
+	position: absolute;
+	top: 16vh;
+	left: 10vw;
+	width: 64vw;
+	transform: rotateZ(6deg);
+}
+
+// 6 width grid
+@mixin gridSize($columnNumber,
+$columnWidth) {}
