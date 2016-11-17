@@ -100,7 +100,7 @@
                         <ellipse id="Oval-2" stroke="#FFFFFF" stroke-width="4" opacity="0.16" cx="320.5" cy="216" rx="211.5" ry="216"></ellipse>
                         <g id="ABCTF-Logo" transform="translate(243.000000, 187.000000)" fill="#FFFFFF">
                             <ellipse id="Logo" cx="28.7012987" cy="29" rx="28.7012987" ry="29"></ellipse>
-                            <text id="abctf" font-family="AktivGrotesk-Bold, Aktiv Grotesk" font-size="33.6" font-weight="bold" letter-spacing="-0.100799999">
+                            <text id="abctf" font-family="Aktiv Grotesk" font-size="33.6" font-weight="bold" letter-spacing="-0.100799999">
                                 <tspan x="71" y="41">ab</tspan>
                                 <tspan x="110.5808" y="41">ctf</tspan>
                             </text>
