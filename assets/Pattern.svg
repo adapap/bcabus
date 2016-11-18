@@ -36,8 +36,7 @@
                         <g id="ABCTF-Logo" transform="translate(243.000000, 187.000000)" fill="#FFFFFF">
                             <ellipse id="Logo" cx="28.7012987" cy="29" rx="28.7012987" ry="29"></ellipse>
                             <text id="abctf" font-family="AktivGrotesk-Bold, Aktiv Grotesk" font-size="33.6" font-weight="bold" letter-spacing="-0.100799999">
-                                <tspan x="71" y="41">ab</tspan>
-                                <tspan x="110.5808" y="41">ctf</tspan>
+                                <tspan x="71" y="41">ABCTF</tspan>
                             </text>
                         </g>
                         <path d="M0.645982551,32.3343109 L136,107" id="Line" stroke="#FFFFFF" stroke-width="4" stroke-linecap="square" opacity="0.24"></path>

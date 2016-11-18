@@ -1,0 +1,34 @@
+body {
+	background-color: #34495e;
+}
+
+h3 {
+	display: inline;
+	font-family: 'Inconsolata';
+}
+
+h5 {
+	display: inline;
+	font-family: 'Inconsolata';
+}
+
+input {
+	border: none;
+	display: inline;
+	margin-right: 1em;
+}
+
+
+#response {
+	color: white;
+}
+
+#response-wrong {
+	color: white;
+}
+
+#submit {
+	background-color: white;
+	border-radius: 25px;
+	font-family: 'Inconsolata';
+}
