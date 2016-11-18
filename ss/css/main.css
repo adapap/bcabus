@@ -35,8 +35,7 @@ html {
   -webkit-font-smoothing: antialiased; }
 
 .pattern {
-  background-image: url("../../assets/Pattern.svg");
-  background-position: center center; }
+}
 
 .margin-right--xsmall {
   margin-right: 16px; }
@@ -241,10 +240,6 @@ html {
 	margin-left: -16vw;
 }
 */
-.pattern {
-  background-image: url("/assets/Pattern.svg");
-  background-position: center; }
-
 .margin-right--xsmall {
   margin-right: 16px; }
 
