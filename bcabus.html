@@ -20,12 +20,12 @@
     
     <body>
         <!-- Temporary Setup -->
-        <div style="padding: 15px" class="sitewrap container-fluid">            
-            <div style="font-size: 36px" class="timeDisplay row container-fluid">It is now 4:15PM.</div>
-            <div style="border: 1px solid black" class="search">
-            Search for towns here...
+        <div style="padding: 15px" class="sitewrap container-fluid">    
+            <div class="row">
+                <div style="font-size: 36px" class="timeDisplay row col-md-4">It is now 4:15PM.</div>
+                <input autofocus type="text" placeholder="Search for towns here..." style="border: 1px solid black; font-size: 16px" class="search col-md-8 col-md-offset-4 container-fluid text-md-right"></input>
             </div>
-            <div class="data">
+            <div class="data row container-fluid">
                 <button style="float: left" onclick="getTowns()">Get Towns</button>
                 <button style="float: right" onclick="getLocations()">Get Locations</button>
                 <div style="float: left, width: 40%" class="townDisplay"></div>
@@ -34,60 +34,41 @@
         </div>
         <!-- Card Sample -->
         <div class="card-container container-fluid">
-            <div class="row col-md-3">
-                <div class="card">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
+            <div class="col-md-3">
+                <div id="ABC" class="card">
+                    <div class="card-header text-xl-center"><h4>Town ABC</h4></div>
+                    <div class="card-block text-md-center"><h2>G2</h2></div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Multiple Copies of Cards -->
-        <div class="card-container container-fluid">
-            <div class="row">
-                <div class="card col-md-4">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
-                </div>
-                <div class="card col-md-4">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
-                </div>
-                <div class="card col-md-4">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
+            <div class="col-md-3">
+                <div id="CDE" class="card">
+                    <div class="card-header text-xl-center"><h4>Town CDE</h4></div>
+                    <div class="card-block text-md-center"><h2>F4</h2></div>
                 </div>
             </div>
-        </div>
-        <div class="card-container container-fluid">
-            <div class="row">
-                <div class="card col-md-3 col-md-offset-1">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
-                </div>
-                <div class="card col-md-3 col-md-offset-2">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
-                </div>
-                <div class="card col-md-3 col-md-offset-3">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
+            <div class="col-md-3">
+                <div id="CCC" class="card">
+                    <div class="card-header text-xl-center"><h4>Town CCC</h4></div>
+                    <div class="card-block text-md-center"><h2>D5</h2></div>
                 </div>
             </div>
-        </div>
-        <div class="card-container container-fluid">
-            <div class="row col-md-3">
-                <div class="card">
-                    <div class="card-header text-xl-center"><h4>Town Name</h4></div>
-                    <div class="card-block text-md-center"><h2>A0</h2></div>
-                    <div class="card-flip-description card-footer text-sm-right">Click for more info...</div>
+            <div class="col-md-3">
+                <div id="ABF" class="card">
+                    <div class="card-header text-xl-center"><h4>Town ABF</h4></div>
+                    <div class="card-block text-md-center"><h2>C6</h2></div>
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div id="BCE" class="card">
+                    <div class="card-header text-xl-center"><h4>Town BCE</h4></div>
+                    <div class="card-block text-md-center"><h2>B1</h2></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div id="EFG" class="card">
+                    <div class="card-header text-xl-center"><h4>Town EFG</h4></div>
+                    <div class="card-block text-md-center"><h2>A3</h2></div>
                 </div>
             </div>
         </div>
@@ -99,9 +80,6 @@
         .card-block {
             background: #eee;
             text-shadow: 3px 5px 20px azure;
-        }
-        .card-flip-description {
-            display: none;
         }
         .card-header {
             background: darkblue;
