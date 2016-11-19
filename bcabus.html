@@ -14,77 +14,68 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="bcabus.css" type="text/css">
     <script src="bcabus.js"></script>
     
     </head>
     
     <body>
         <!-- Temporary Setup -->
-        <div style="padding: 15px" class="sitewrap container-fluid">    
+        <div class="sitewrap container-fluid">
+        <div class="upper-content container-fluid">    
             <div class="row">
-                <div style="font-size: 36px" class="timeDisplay row col-md-4">It is now 4:15PM.</div>
-                <input autofocus type="text" placeholder="Search for towns here..." style="border: 1px solid black; font-size: 16px" class="search col-md-8 col-md-offset-4 container-fluid text-md-right"></input>
+                <div class="timeDisplay col-md-4">It is now <span class="time">4:15PM</span>.</div>
+                <input autofocus type="text" placeholder="Search for towns here..." class="search col-md-8 col-md-offset-4 container-fluid text-md-right"></input>
             </div>
-            <div class="data row container-fluid">
-                <button style="float: left" onclick="getTowns()">Get Towns</button>
-                <button style="float: right" onclick="getLocations()">Get Locations</button>
-                <div style="float: left, width: 40%" class="townDisplay"></div>
-                <div style="float: right" class="locationDisplay"></div>
-            </div>
+            <div class="row">
+                <div class="timeDesc col-md-4">The buses will depart in <span class="timeLeft">15:00</span>.</div>
         </div>
-        <!-- Card Sample -->
+        </div>
+        <div class="lower-content container-fluid">
         <div class="card-container container-fluid">
+            <!-- Card Sample 2 Start-->
             <div class="col-md-3">
                 <div id="ABC" class="card">
-                    <div class="card-header text-xl-center"><h4>Town ABC</h4></div>
+                    <div class="card-header text-md-center"><h4>Town ABC</h4></div>
                     <div class="card-block text-md-center"><h2>G2</h2></div>
                 </div>
             </div>
+            <!-- Card Sample 2 Start-->
             <div class="col-md-3">
                 <div id="CDE" class="card">
-                    <div class="card-header text-xl-center"><h4>Town CDE</h4></div>
+                    <div class="card-header text-md-center"><h4>Town CDE</h4></div>
                     <div class="card-block text-md-center"><h2>F4</h2></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div id="CCC" class="card">
-                    <div class="card-header text-xl-center"><h4>Town CCC</h4></div>
+                    <div class="card-header text-md-center"><h4>Town CCC</h4></div>
                     <div class="card-block text-md-center"><h2>D5</h2></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div id="ABF" class="card">
-                    <div class="card-header text-xl-center"><h4>Town ABF</h4></div>
+                    <div class="card-header text-md-center"><h4>Town ABF</h4></div>
                     <div class="card-block text-md-center"><h2>C6</h2></div>
-                    
+
                 </div>
             </div>
             <div class="col-md-3">
                 <div id="BCE" class="card">
-                    <div class="card-header text-xl-center"><h4>Town BCE</h4></div>
+                    <div class="card-header text-md-center"><h4>Town BCE</h4></div>
                     <div class="card-block text-md-center"><h2>B1</h2></div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div id="EFG" class="card">
-                    <div class="card-header text-xl-center"><h4>Town EFG</h4></div>
+                    <div class="card-header text-md-center"><h4>Town EFG</h4></div>
                     <div class="card-block text-md-center"><h2>A3</h2></div>
                 </div>
             </div>
         </div>
+        </div>
+        </div>
     </body>
     <style>
-        .card {
-            box-shadow: 3px 5px 10px lightgray;
-        }
-        .card-block {
-            background: #eee;
-            text-shadow: 3px 5px 20px azure;
-        }
-        .card-header {
-            background: darkblue;
-            color: white;
-            text-shadow: 3px 5px 30px white;
-        }
     </style>
 </html>

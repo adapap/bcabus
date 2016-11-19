@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: luklas
- * Date: 11/18/16
- * Time: 3:31 PM
- */
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -50,43 +43,28 @@ for($i = 1; $i<$len; $i++) {
 </head>
 
 <body>
-<!-- Temporary Setup -->
-<div style="padding: 15px" class="sitewrap container-fluid">
-    <div class="row">
-        <div style="font-size: 36px" class="timeDisplay row col-md-4">It is now 4:15PM.</div>
-        <input autofocus type="text" placeholder="Search for towns here..." style="border: 1px solid black; font-size: 16px" class="search col-md-8 col-md-offset-4 container-fluid text-md-right"></input>
-    </div>
-    <div class="data row container-fluid">
-        <button style="float: left" onclick="getTowns()">Get Towns</button>
-        <button style="float: right" onclick="getLocations()">Get Locations</button>
-        <div style="float: left, width: 40%" class="townDisplay"></div>
-        <div style="float: right" class="locationDisplay"></div>
-    </div>
-</div>
-<!-- Card Sample -->
-<div class="card-container container-fluid">
-    <?php foreach ($locations as $items){ ?>
-    <div class="col-md-3">
-        <div id="ABC" class="card">
-            <div class="card-header text-xl-center"><h4><?php echo($items); ?></h4></div>
-            <div class="card-block text-md-center"><h2>G2</h2></div>
+    <div class="sitewrap container-fluid">
+    <div class="upper-content container-fluid">    
+        <div class="row">
+        <div class="timeDisplay col-md-4">It is now <span class="time">4:15PM</span>.</div>
+            <input autofocus type="text" placeholder="Search for towns here..." class="search col-md-8 col-md-offset-4 container-fluid text-md-right"></input></div>
+            <div class="row">
+            <div class="timeDesc col-md-4">The buses will depart in <span class="timeLeft">15:00</span>.</div>
         </div>
     </div>
-    <?php } ?>
-</div>
+    <div class="lower-content container-fluid">
+        <!-- Card Sample -->
+        <div class="card-container container-fluid">
+            <?php foreach ($locations as $items){ ?>
+            <div class="col-md-3">
+                <div id="ABC" class="card">
+                    <div class="card-header text-md-center"><h4><?php echo($items); ?></h4></div>
+                    <div class="card-block text-md-center"><h2>G2</h2></div>
+                </div>
+            </div>
+            <?php } ?>
+        </div>
+        </div>
+    </div>
 </body>
-<style>
-    .card {
-        box-shadow: 3px 5px 10px lightgray;
-    }
-    .card-block {
-        background: #eee;
-        text-shadow: 3px 5px 20px azure;
-    }
-    .card-header {
-        background: darkblue;
-        color: white;
-        text-shadow: 3px 5px 30px white;
-    }
-</style>
 </html>

@@ -1,0 +1,74 @@
+@mixin linearGradient($top, $bottom){ //Gradient Mixin
+    background: $top; /* Old browsers */
+    background: -moz-linear-gradient(top,  $top 0%, $bottom 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,$top), color-stop(100%,$bottom)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  $top 0%,$bottom 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  $top 0%,$bottom 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  $top 0%,$bottom 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  $top 0%,$bottom 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+}
+
+$fontSmall: 1.0em;
+$fontNormal: 1.4em;
+$fontLarge: 1.8em;
+
+$text-shadow-basic: 2px 4px 3px rgba(0,0,0,0.3);
+$text-shadow-blur: 5px 5px 25px rgba(0,0,0,0.3);
+
+$border-1: 1px solid black;
+
+body {
+    background: rgba(240,240,240,0.4);
+}
+
+.card {
+    box-shadow: 3px 5px 20px gray;
+    font-size: $fontNormal;
+    border-radius: 10px 10px 0 0;
+}
+.card-block {
+    h2 {
+        font-size: 2.4em;
+    }
+    @include linearGradient(#85C1E9, #D6EAF8);
+    text-shadow: 2px 4px 20px azure;
+    padding: 8%;
+}
+.card-header {
+    @include linearGradient(#2874A6, #4385B1);
+    color: white;
+    text-shadow: $text-shadow-basic;
+}
+
+.lower-content {
+    border: $border-1;
+    border-radius: 5px;
+    padding: 1% 0;
+}
+
+.upper-content {
+    .row {
+        input {
+            font-size: $fontSmall;
+        }
+        .timeDesc, .timeLeft {
+            font-size: $fontSmall;
+            text-shadow: $text-shadow-blur;
+        }
+        .timeDisplay {
+            font-size: $fontLarge;
+            text-shadow: $text-shadow-blur;
+        }
+    }
+    .search {
+        text-shadow: $text-shadow-blur;
+        border: $border-1;
+        font-size: $fontSmall;
+        margin: 2% 0 -5% 0;
+    }
+    padding: 2%;
+    margin: 2%;
+    border: $border-1;
+    border-radius: 5px;
+}
