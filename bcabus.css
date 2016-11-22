@@ -1,3 +1,6 @@
+@media only screen and (max-width: 768px) {
+  *:not(.search) {
+    text-align: center; } }
 body {
   background: rgba(240, 240, 240, 0.4); }
 
@@ -51,16 +54,18 @@ body {
 .lower-content {
   border: 1px solid black;
   border-radius: 5px;
-  margin: 2% 5%; }
+  margin: 2% 2%; }
 
 .upper-content {
   padding: 2%;
   padding-left: 4%;
-  margin: 2% 5%;
+  margin: 2% 2%;
   border: 1px solid black;
   border-radius: 5px; }
   .upper-content .row input {
     font-size: 1em; }
+  .upper-content .row .time, .upper-content .row .timeLeft {
+    padding-left: 1%; }
   .upper-content .row .timeDesc, .upper-content .row .timeLeft {
     font-size: 1em;
     text-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3); }
@@ -70,6 +75,8 @@ body {
   .upper-content .search {
     text-shadow: 5px 5px 25px rgba(0, 0, 0, 0.3);
     border: 1px solid black;
-    font-size: 1em; }
+    font-size: 1em;
+    margin: 1% 0;
+    text-align: right; }
 
 /*# sourceMappingURL=bcabus.css.map */

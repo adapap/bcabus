@@ -9,6 +9,12 @@
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
 }
 
+@media only screen and (max-width: 768px) {
+    *:not(.search) {
+        text-align: center;
+    }
+}
+
 $fontSmall: 1.0em;
 $fontNormal: 1.4em;
 $fontLarge: 1.8em;
@@ -44,13 +50,16 @@ body {
 .lower-content {
     border: $border-1;
     border-radius: 5px;
-    margin: 2% 5%;
+    margin: 2% 2%;
 }
 
 .upper-content {
     .row {
         input {
             font-size: $fontSmall;
+        }
+        .time, .timeLeft {
+            padding-left: 1%;
         }
         .timeDesc, .timeLeft {
             font-size: $fontSmall;
@@ -65,10 +74,12 @@ body {
         text-shadow: $text-shadow-blur;
         border: $border-1;
         font-size: $fontSmall;
+        margin: 1% 0;
+        text-align: right;
     }
     padding: 2%;
     padding-left: 4%;
-    margin: 2% 5%;
+    margin: 2% 2%;
     border: $border-1;
     border-radius: 5px;
 }
