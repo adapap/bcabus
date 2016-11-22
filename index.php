@@ -3,20 +3,31 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
-
-//echo(print_r($jsonHtml->valueRanges));
+//$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
+$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1qVq2lPFu_U2Uz_MDxCNfyO8GRpndgYRqpHCR9qQZV0k/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
 
 $locations = array();
+$names = array();
 
 $len = count($jsonHtml->valueRanges[0]->values);
 for($i = 1; $i<$len; $i++) {
-   array_push($locations, ($jsonHtml->valueRanges[0]->values[$i][0]));
+    array_push($names, ($jsonHtml->valueRanges[0]->values[$i][0]));
 }
 
 $len = count($jsonHtml->valueRanges[2]->values);
 for($i = 1; $i<$len; $i++) {
-    array_push($locations ,$jsonHtml->valueRanges[2]->values[$i][0]);
+    array_push($names ,$jsonHtml->valueRanges[2]->values[$i][0]);
+}
+
+
+$len = count($jsonHtml->valueRanges[0]->values);
+for($i = 1; $i<$len; $i++) {
+    array_push($locations , isset($jsonHtml->valueRanges[1]->values[$i][0]) ? $jsonHtml->valueRanges[1]->values[$i][0] : "Arriving");
+}
+
+$len = count($jsonHtml->valueRanges[2]->values);
+for($i = 1; $i<$len; $i++) {
+    array_push($locations , isset($jsonHtml->valueRanges[3]->values[$i][0]) ? $jsonHtml->valueRanges[3]->values[$i][0] : "Arriving");
 }
 
 
@@ -44,7 +55,7 @@ for($i = 1; $i<$len; $i++) {
 
 <body>
     <div class="sitewrap container-fluid">
-    <div class="upper-content container-fluid">    
+    <div class="upper-content container-fluid">
         <div class="row">
         <div class="timeDisplay col-md-4">It is now <span class="time">4:15PM</span>.</div>
             <input autofocus type="text" placeholder="Search for towns here..." class="search col-md-8 col-md-offset-4 container-fluid text-md-right"></input></div>
@@ -55,11 +66,11 @@ for($i = 1; $i<$len; $i++) {
     <div class="lower-content container-fluid">
         <!-- Card Sample -->
         <div class="card-container container-fluid">
-            <?php foreach ($locations as $items){ ?>
+            <?php for($i = 0; $i<count($names)-1; $i++){ ?>
             <div class="col-md-3">
                 <div id="ABC" class="card">
-                    <div class="card-header text-md-center"><h4><?php echo($items); ?></h4></div>
-                    <div class="card-block text-md-center"><h2>G2</h2></div>
+                    <div class="card-header text-md-center"><h4><?php echo($names[$i]); ?></h4></div>
+                    <div class="card-block text-md-center"><h2><?php echo($locations[$i]); ?></h2></div>
                 </div>
             </div>
             <?php } ?>
