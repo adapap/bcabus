@@ -6,6 +6,9 @@ error_reporting(E_ALL);
 //$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
 $jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
 
+$not_arrived_message = "";
+
+
 $locations = array();
 $names = array();
 $len = count($jsonHtml->valueRanges[0]->values);
@@ -18,12 +21,15 @@ for($i = 1; $i<$len; $i++) {
 }
 $len = count($jsonHtml->valueRanges[0]->values);
 for($i = 1; $i<$len; $i++) {
-    array_push($locations , isset($jsonHtml->valueRanges[1]->values[$i][0]) ? $jsonHtml->valueRanges[1]->values[$i][0] : "Arriving");
+    array_push($locations , isset($jsonHtml->valueRanges[1]->values[$i][0]) ? $jsonHtml->valueRanges[1]->values[$i][0] : $not_arrived_message);
 }
 $len = count($jsonHtml->valueRanges[2]->values);
 for($i = 1; $i<$len; $i++) {
-    array_push($locations , isset($jsonHtml->valueRanges[3]->values[$i][0]) ? $jsonHtml->valueRanges[3]->values[$i][0] : "Arriving");
+    array_push($locations , isset($jsonHtml->valueRanges[3]->values[$i][0]) ? $jsonHtml->valueRanges[3]->values[$i][0] : $not_arrived_message);
 }
+
+$maxrows = count($locations) > count($names) ? count($locations) : count($names);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +43,10 @@ for($i = 1; $i<$len; $i++) {
             d.setTime(d.getTime() + (exdays*24*60*60*1000));
             var expires = "expires="+ d.toUTCString();
             document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+            location.reload();
+
         }
+
     </script>
     <!-- Meta Tags/Site Setup -->
     <meta charset="UTF-8" />
@@ -83,25 +92,22 @@ for($i = 1; $i<$len; $i++) {
         <div class="row" style="padding-top: 2%">
             <div class="col l8 offset-l2 m6 offset-m3 s12">
                 <!-- Favorite Town -->
-                <ul style="display: none" class="collection favoriteList">
-                    <li class="collection-item favoriteItem"><i style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h4 class="favoriteTown">Bravo</h4><h5 class="favoriteLocation">X0</h5>
-                    </li>
-                </ul>
+                <?php if(isset($_COOKIE['favorite']) and in_array($_COOKIE['favorite'], $names)) { ?>
+                    <ul style="display: none" class="collection favoriteList">
+                        <li class="collection-item favoriteItem"><i onclick='setCookie("favorite", "nothing", 1);' style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h4 class="favoriteTown"><?php echo($_COOKIE['favorite']); ?></h4><h5 class="favoriteLocation"><?php echo(ucfirst($locations[array_search($_COOKIE['favorite'], $names)])); ?></h5>
+                        </li>
+                    </ul>
+                <?php } ?>
                 <!-- Town List -->
                 <ul class="townList collection with-header">
                     <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
-                    <?php for($i = 0; $i<count($names)-1; $i++){ ?>
-                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem"><p><span><?php echo($names[$i]); ?></span><span class="right"><?php echo($locations[$i]); ?>&nbsp;&nbsp;<i onclick="setCookie('favorite', '<?php echo($names[$i]); ?>', 1000);" style=" color: grey; cursor: pointer" class="starIcon1 material-icons secondary-content">star</i></span></p></li>
+                    <?php for($i = 0; $i<$maxrows; $i++){ ?>
+                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem"><p><span><?php echo($names[$i]); ?></span><span class="right"><?php echo(ucfirst($locations[$i])); ?>&nbsp;&nbsp;<i onclick="setCookie('favorite', '<?php echo($names[$i]); ?>', 1000);" style=" color: grey; cursor: pointer" class="starIcon1 material-icons secondary-content">star</i></span></p></li>
                     <?php } ?>
                 </ul>
             </div>
         </div>
-        <!-- Favorite Control -->
-        <div id="town-select-link" class="row white-text">
-            <div style="padding-bottom: 2%" class="col l6 offset-l3 m8 offset-m2 s10 offset-s1 blue lighten-4">
-            <input type="text" id="town-input" class="autocomplete center-align" placeholder="Type your town name here..." onblur="this.placeholder = 'Type your town name here...'" onfocus="this.placeholder = ''">
-                <button class="btn waves-effect waves-light blue townSubmit" type="submit" name="action">Save</button></div>
-        </div>
+
     </main>
     <!-- Footer -->
     <footer class="valign page-footer blue darken-2 light-blue-text text-lighten-5 center-align">
