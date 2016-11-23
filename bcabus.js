@@ -27,7 +27,7 @@ $(document).ready(function() {
     $('input.autocomplete').autocomplete({
         data: {
             "Alpha": null,
-            "Beta": null,
+            "Bravo": null,
             "Charlie": null,
             "Delta": null,
             "Echo": null,
@@ -61,7 +61,7 @@ $(document).ready(function() {
         else {
             $townItem.show(100);
             $townHeader.show(100);
-            $favoriteList.show(100);
+            if (localStorage.getItem("favTown") !== null) { $favoriteList.show(100); };
         }
     })
 })
