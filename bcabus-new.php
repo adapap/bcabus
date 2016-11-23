@@ -80,7 +80,7 @@ for($i = 1; $i<$len; $i++) {
                 <ul class="townList collection with-header">
                     <li class="collection-header townList-header"><h2>Town List</h2></li>
                     <?php for($i = 0; $i<count($names)-1; $i++){ ?>
-                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem"><h5><b><?php echo($names[$i]); ?></b></h5><h5><?php echo(ucfirst($locations[$i])); ?></h5></li>
+                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem"><p><span><?php echo($names[$i]); ?></span><span class="right"><?php echo($locations[$i]); ?></span></p></li>
                     <?php } ?>
                 </ul>
             </div>
@@ -89,7 +89,7 @@ for($i = 1; $i<$len; $i++) {
         <div id="town-select-link" class="row white-text">
             <div style="padding-bottom: 2%" class="col l6 offset-l3 m8 offset-m2 s10 offset-s1 blue lighten-4">
             <input type="text" id="town-input" class="autocomplete center-align" placeholder="Type your town name here..." onblur="this.placeholder = 'Type your town name here...'" onfocus="this.placeholder = ''">
-                <button class="btn waves-effect waves-light blue townSubmit" type="submit" name="action">Save</button></div></div>
+                <button class="btn waves-effect waves-light blue townSubmit" type="submit" name="action">Save</button></div>
         </div>
     </main>
     <!-- Footer -->
