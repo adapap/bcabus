@@ -55,7 +55,7 @@ $(document).ready(function() {
         else {
             $townItem.show(100);
             $townHeader.show(100);
-            $favoriteList.show(100);
+            if (localStorage.getItem("favTown") !== null) { $favoriteList.show(100); }
         }
     })
 })
