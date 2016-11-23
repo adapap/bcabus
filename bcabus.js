@@ -4,7 +4,7 @@ $(document).ready(function() {
     
     //Check if a favorite town has been set
     if (localStorage.getItem("favTown") == null) {
-    Materialize.toast('<span style="margin: 0; cursor: pointer" class="toast">Click here to choose your town</span>', 5000)
+    Materialize.toast('<span style="margin: 0; cursor: pointer" class="toast">Click here to choose your town</span>', 6000)
     }
     //Update location with PHP (again later)
     else {
@@ -16,6 +16,12 @@ $(document).ready(function() {
     $(".toast").click(function() {
         $(window).scrollTo($("#town-select-link"),1000,"swing");
     });
+    
+    $(".starIcon").click(function() {
+        localStorage.removeItem("favTown");
+        $favoriteList.slideUp(100);
+        Materialize.toast("Your town has been reset",3000);
+    })
     
     // Town Selector - Replace with JSON
     $('input.autocomplete').autocomplete({
@@ -55,7 +61,7 @@ $(document).ready(function() {
         else {
             $townItem.show(100);
             $townHeader.show(100);
-            if (localStorage.getItem("favTown") !== null) { $favoriteList.show(100); }
+            $favoriteList.show(100);
         }
     })
 })
