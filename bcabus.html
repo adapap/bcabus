@@ -64,10 +64,10 @@
         </div>
         <!-- Favorite Control -->
         <div id="town-select-link" class="row white-text">
-            <div style="padding-bottom: 1%" class="col l6 offset-l3 m8 offset-m2 s10 offset-s1 blue lighten-4">
-            <input type="text" id="town-input" class="autocomplete center-align">
-                <h6 class="center-align">Type your town name and select from above</h6><button class="btn waves-effect waves-light blue townSubmit" type="submit" name="action">Save
-                <i class="material-icons right">send</i></div></div>
+            <div style="padding-bottom: 2%" class="col l6 offset-l3 m8 offset-m2 s10 offset-s1 blue lighten-4">
+            <input type="text" id="town-input" class="autocomplete center-align" placeholder="Type your town name here..." onblur="this.placeholder = 'Type your town name here...'" onfocus="this.placeholder = ''">
+                <button class="btn waves-effect waves-light blue townSubmit" type="submit" name="action">Save
+                <i class="material-icons right">send</i></button></div></div>
         </div>
     </main>
     <!-- Footer -->
@@ -102,7 +102,7 @@
     }
     @media only screen and (max-width: 768px) {
         .townSubmit {
-            margin-left: 30%;
+            margin-left: 24%;
         }
     }
     @media only screen and (min-width: 768px) {
