@@ -2,8 +2,10 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
 //$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
 $jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
+
 $locations = array();
 $names = array();
 $len = count($jsonHtml->valueRanges[0]->values);
@@ -28,6 +30,15 @@ for($i = 1; $i<$len; $i++) {
 <html lang="en">
     
 <head>
+
+    <script>
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date();
+            d.setTime(d.getTime() + (exdays*24*60*60*1000));
+            var expires = "expires="+ d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+    </script>
     <!-- Meta Tags/Site Setup -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -78,9 +89,9 @@ for($i = 1; $i<$len; $i++) {
                 </ul>
                 <!-- Town List -->
                 <ul class="townList collection with-header">
-                    <li class="collection-header townList-header"><h2>Town List</h2></li>
+                    <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
                     <?php for($i = 0; $i<count($names)-1; $i++){ ?>
-                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem"><p><span><?php echo($names[$i]); ?></span><span class="right"><?php echo($locations[$i]); ?></span></p></li>
+                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem"><p><span><?php echo($names[$i]); ?></span><span class="right"><?php echo($locations[$i]); ?>&nbsp;&nbsp;<i onclick="setCookie('favorite', '<?php echo($names[$i]); ?>', 1000);" style=" color: grey; cursor: pointer" class="starIcon1 material-icons secondary-content">star</i></span></p></li>
                     <?php } ?>
                 </ul>
             </div>

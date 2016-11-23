@@ -143,7 +143,6 @@ for($j=0; $j<count($names); $j++){
 
 ?>
 <script>
-
     $(document).ready(function() {
         Materialize.toast("Save your town at the bottom of this page",6000);
 
