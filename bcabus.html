@@ -14,15 +14,68 @@
 
     <title>BCA Bus</title>
     
-    <!-- JQuery/Materialize -->
+    <!-- CSS/JQuery/ScrollTo/Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
+    
     <script src="bcabus.js"></script>
     </head>
-    <style>
+    <body class="blue lighten-5">
+        
+    <!-- Outer Wrapper -->
+    <head>
+    <!-- Search -->
+    <nav class="search-nav blue">
+    <div class="nav-wrapper">
+        <form>
+            <div class="input-field">
+            <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autofocus autocomplete="off">
+            <label for="search"><i class="material-icons">search</i></label>
+            </div>
+        </form>
+    </div>
+    </nav>
+    </head>
+    <!-- Town Display -->
+    <main>
+        <div class="row" style="padding-top: 2%">
+            <div class="col l8 offset-l2 m6 offset-m3 s12">
+                <!-- Favorite Town -->
+                <ul style="display: none" class="collection favoriteList">
+                    <li class="collection-item favoriteItem"><i style="font-size: 2.5rem; color: gold" class="material-icons secondary-content">star</i><h4 class="favoriteTown">Bravo</h4><h5 class="favoriteLocation">X0</h5>
+                    </li>
+                </ul>
+                <!-- Town List -->
+                <ul class="townList collection with-header">
+                    <li class="collection-header townList-header"><h2>Town List</h2></li>
+                    <li id="alpha" class="collection-item townItem"><h4>Alpha</h4><h5 class="location">A1</h5></li>
+                    <li id="bravo" class="collection-item townItem"><h4>Bravo</h4><h5 class="location">B2</h5></li>
+                    <li id="charlie" class="collection-item townItem"><h4>Charlie</h4><h5 class="location">C3</h5></li>
+                    <li id="delta" class="collection-item townItem"><h4>Delta</h4><h5 class="location">D4</h5></li>
+                    <li id="echo" class="collection-item townItem"><h4>Echo</h4><h5 class="location">E5</h5></li>
+                    <li id="foxtrot" class="collection-item townItem"><h4>Foxtrot</h4><h5 class="location">F6</h5></li>
+                    <li id="golf" class="collection-item townItem"><h4>Golf</h4><h5 class="location">G7</h5></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Favorite Control -->
+        <div id="town-select-link" class="row white-text">
+            <div style="padding-bottom: 1%" class="col l6 offset-l3 m8 offset-m2 s10 offset-s1 blue lighten-4">
+            <input type="text" id="town-input" class="autocomplete center-align">
+                <h6 class="center-align">Type your town name and select from above</h6><button class="btn waves-effect waves-light blue townSubmit" type="submit" name="action">Save
+                <i class="material-icons right">send</i></div></div>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="valign page-footer blue darken-2 light-blue-text text-lighten-5 center-align">
+        <div style="padding-bottom: 5%"><h3>BCA Bus</h3><h6>Find your bus from anywhere.</h6></div>
+        </footer>
+    </body>
+        <style>
     ::-webkit-input-placeholder {
     color: white;
     }
@@ -38,49 +91,24 @@
     :-ms-input-placeholder {  
        color: white;  
     }
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1 0 auto;
+    }
+    @media only screen and (max-width: 768px) {
+        .townSubmit {
+            margin-left: 30%;
+        }
+    }
+    @media only screen and (min-width: 768px) {
+        .townSubmit {
+            margin-left: 40%;
+        }
+    }
     </style>
-    <body class="blue lighten-5">
-        
-    <!-- Outer Wrapper -->
-    <head>
-    <!-- Search -->
-    <nav class="search-nav blue">
-    <div class="nav-wrapper">
-        <form>
-            <div class="input-field">
-            <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autofocus autocomplete="off">
-            <i class="material-icons">search</i>
-            </div>
-        </form>
-    </div>
-    </nav>
-    </head>
-    <!-- Town Display -->
-    <main>
-        <div class="row" style="padding-top: 2%">
-            <div class="col l8 offset-l2 m6 offset-m3 s12">
-                <ul class="townList collection with-header">
-                    <li class="collection-header townList-header"><h2>Town List</h2></li>
-                    <li id="alpha" class="collection-item townItem"><h4>Alpha</h4><h5 class="location">A1</h5></li>
-                    <li id="bravo" class="collection-item townItem"><h4>Bravo</h4><h5 class="location">B2</h5></li>
-                    <li id="charlie" class="collection-item townItem"><h4>Charlie</h4><h5 class="location">C3</h5></li>
-                    <li id="delta" class="collection-item townItem"><h4>Delta</h4><h5 class="location">D4</h5></li>
-                    <li id="echo" class="collection-item townItem"><h4>Echo</h4><h5 class="location">E5</h5></li>
-                    <li id="foxtrot" class="collection-item townItem"><h4>Foxtrot</h4><h5 class="location">F6</h5></li>
-                    <li id="golf" class="collection-item townItem"><h4>Golf</h4><h5 class="location">G7</h5></li>
-                </ul>
-            </div>
-        </div>
-        <div id="town-select-link" class="row white-text">
-            <div class="col l6 offset-l3 m8 offset-m2 s10 offset-s1 blue lighten-4">
-                <input type="text" id="town-input" class="autocomplete center-align">
-                <p class="center-align">Select a default town from the list above</p>
-            </div>
-        </div>
-    </main>
-    <!-- Footer -->
-    <footer class="valign page-footer blue darken-2 light-blue-text text-lighten-5 center-align">
-        <div style="margin-bottom: 0; padding-bottom: 2%"><h3>BCA Bus</h3><h6>Find your bus from anywhere.</h6></div>
-        </footer>
-    </body>
 </html>
