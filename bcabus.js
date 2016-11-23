@@ -9,8 +9,8 @@ $(document).ready(function() {
     //Update location with PHP (again later)
     else {
     favTown = localStorage.getItem("favTown");
-    $(".favoriteTown").html(favTown);
-    $favoriteList.show(100);
+        $(".favoriteTown").html(favTown);
+        $favoriteList.show(100);
     }
     
     $(".toast").click(function() {
@@ -36,16 +36,6 @@ $(document).ready(function() {
         }
     });
     
-    //Use PHP to get location based on input again.
-    $townInput = $("#town-input")
-    $(".townSubmit").click(function() { $townInput.submit(); })
-    $townInput.submit(function() {
-        favTown = $townInput.val();
-        $(".favoriteTown").html(favTown);
-        localStorage.setItem("favTown",favTown);
-        $favoriteList.show(100);
-    })
-    
     //Works by #id of the list element
     $search = $("input[type='search']");
     $townItem = $(".townItem");
@@ -65,4 +55,6 @@ $(document).ready(function() {
         }
     })
 })
+
+localStorage.setItem("favTown",favTown);
 
