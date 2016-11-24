@@ -3,11 +3,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-//$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
-$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
+$jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
+//Temp Sheet $jsonHtml = json_decode(file_get_contents("https://sheets.googleapis.com/v4/spreadsheets/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU"));
 
-$not_arrived_message = "";
-
+$not_arrived_message = "??";
 
 $locations = array();
 $names = array();
@@ -36,18 +35,6 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
 <html lang="en">
     
 <head>
-
-    <script>
-        function setCookie(cname, cvalue, exdays) {
-            var d = new Date();
-            d.setTime(d.getTime() + (exdays*24*60*60*1000));
-            var expires = "expires="+ d.toUTCString();
-            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-            location.reload();
-
-        }
-
-    </script>
     <!-- Meta Tags/Site Setup -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -68,6 +55,22 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
     
+    <script>
+        function setCookie(cname, cvalue, exdays) {
+            if (cvalue == "none") {
+                location.reload();
+                var changed == false;
+            }
+            else {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                location.reload();
+                var changed == true;
+            }
+        }
+    </script>
     <script src="bcabus.js"></script>
     </head>
     <body class="blue lighten-5">
@@ -80,7 +83,7 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
     <div class="nav-wrapper">
         <form>
             <div class="input-field">
-            <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autofocus autocomplete="off">
+            <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autocomplete="off">
             <label for="search"><i class="material-icons">search</i></label>
             </div>
         </form>
@@ -94,7 +97,7 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
                 <!-- Favorite Town -->
                 <?php if(isset($_COOKIE['favorite']) and in_array($_COOKIE['favorite'], $names)) { ?>
                     <ul style="display: none" class="collection favoriteList">
-                        <li class="collection-item favoriteItem"><i onclick='setCookie("favorite", "nothing", 1);' style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h4 class="favoriteTown"><?php echo($_COOKIE['favorite']); ?></h4><h5 class="favoriteLocation"><?php echo(ucfirst($locations[array_search($_COOKIE['favorite'], $names)])); ?></h5>
+                        <li class="collection-item favoriteItem"><i onclick='setCookie("favorite", "none", 1);' style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h4 class="favoriteTown"><?php echo($_COOKIE['favorite']); ?></h4><h5 class="favoriteLocation"><?php echo(ucfirst($locations[array_search($_COOKIE['favorite'], $names)])); ?></h5>
                         </li>
                     </ul>
                 <?php } ?>
