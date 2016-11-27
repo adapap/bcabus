@@ -35,6 +35,15 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
 <html lang="en">
     
 <head>
+    <script>
+        function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                location.reload();
+        }
+    </script>
     <!-- Meta Tags/Site Setup -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -49,28 +58,11 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
     
     <!-- CSS/JQuery/ScrollTo/Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
-    
-    <script>
-        function setCookie(cname, cvalue, exdays) {
-            if (cvalue == "none") {
-                location.reload();
-                var changed == false;
-            }
-            else {
-                var d = new Date();
-                d.setTime(d.getTime() + (exdays*24*60*60*1000));
-                var expires = "expires="+ d.toUTCString();
-                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-                location.reload();
-                var changed == true;
-            }
-        }
-    </script>
     <script src="bcabus.js"></script>
     </head>
     <body class="blue lighten-5">
@@ -97,7 +89,7 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
                 <!-- Favorite Town -->
                 <?php if(isset($_COOKIE['favorite']) and in_array($_COOKIE['favorite'], $names)) { ?>
                     <ul style="display: none" class="collection favoriteList">
-                        <li class="collection-item favoriteItem"><i onclick='setCookie("favorite", "none", 1);' style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h4 class="favoriteTown"><?php echo($_COOKIE['favorite']); ?></h4><h5 class="favoriteLocation"><?php echo(ucfirst($locations[array_search($_COOKIE['favorite'], $names)])); ?></h5>
+                        <li class="collection-item favoriteItem"><i onclick='setCookie("favorite", "none", -1);' style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h4 class="favoriteTown"><?php echo($_COOKIE['favorite']); ?></h4><h5 class="favoriteLocation"><?php echo(ucfirst($locations[array_search($_COOKIE['favorite'], $names)])); ?></h5>
                         </li>
                     </ul>
                 <?php } ?>
@@ -105,7 +97,7 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
                 <ul class="townList collection with-header">
                     <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
                     <?php for($i = 0; $i<$maxrows; $i++){ ?>
-                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem"><p><span><?php echo($names[$i]); ?></span><span class="right"><?php echo(ucfirst($locations[$i])); ?>&nbsp;&nbsp;<i onclick="setCookie('favorite', '<?php echo($names[$i]); ?>', 1000);" style=" color: grey; cursor: pointer" class="starIcon1 material-icons secondary-content">star</i></span></p></li>
+                    <li id="<?php echo(strtolower($names[$i])) ?>" class="collection-item townItem row"><p class="col l8 m8 s8"><span><?php echo($names[$i]); ?></span></p><span class="locationAlign col l4 m4 s4 right-align"><?php echo(ucfirst($locations[$i])); ?>&nbsp;&nbsp;<i onclick="setCookie('favorite', '<?php echo($names[$i]); ?>', 1000);" style="color: grey; cursor: pointer" class="starIcon1 material-icons secondary-content">star</i></span></li>
                     <?php } ?>
                 </ul>
             </div>
@@ -142,14 +134,20 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
     main {
         flex: 1 0 auto;
     }
-    @media only screen and (max-width: 768px) {
-        .townSubmit {
-            margin-left: 30%;
+    @media only screen and (max-width: 768px) { /* Mobile */
+        .locationAlign {
+            margin-top: 5%;
+        }
+        .starIcon1 {
+            margin-top: -3%;
         }
     }
-    @media only screen and (min-width: 768px) {
-        .townSubmit {
-            margin-left: 43%;
+    @media only screen and (min-width: 768px) { /* Desktop */
+        .locationAlign {
+            margin-top: 2%;
+        }
+        .starIcon1 {
+            margin-top: -1%;
         }
     }
     </style>

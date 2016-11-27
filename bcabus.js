@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    var changed;
     $favoriteList = $(".favoriteList");
     
     //Display message if cookie does not exist
@@ -23,16 +22,10 @@ $(document).ready(function() {
     }
         var myCookie = getCookie("favorite");
         if (myCookie == null) {
-            Materialize.toast("Click the star to set a favorite",6000);
+            Materialize.toast("Click the star to set a favorite town",6000);
         }
         else {
-            if (changed == true) {
-                changed == false;
-                Materialize.toast("Your town has been updated",3000);
-            }
-            if (changed == false) {
-                Materialize.toast("Your town has been reset",3000);
-            }
+            $favoriteList.show(100);
         }
     
     //Works by #id of the list element
