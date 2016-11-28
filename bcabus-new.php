@@ -12,20 +12,23 @@ $locations = array();
 $names = array();
 $len = count($jsonHtml->valueRanges[0]->values);
 for($i = 1; $i<$len; $i++) {
-    array_push($names, ($jsonHtml->valueRanges[0]->values[$i][0]));
+    array_push($names,$jsonHtml->valueRanges[0]->values[$i][0]);
 }
 $len = count($jsonHtml->valueRanges[2]->values);
 for($i = 1; $i<$len; $i++) {
-    array_push($names ,$jsonHtml->valueRanges[2]->values[$i][0]);
+    array_push($names,$jsonHtml->valueRanges[2]->values[$i][0]);
 }
 $len = count($jsonHtml->valueRanges[0]->values);
 for($i = 1; $i<$len; $i++) {
-    array_push($locations , isset($jsonHtml->valueRanges[1]->values[$i][0]) ? $jsonHtml->valueRanges[1]->values[$i][0] : $not_arrived_message);
+    array_push($locations,isset($jsonHtml->valueRanges[1]->values[$i][0]) ? $jsonHtml->valueRanges[1]->values[$i][0] : $not_arrived_message);
 }
 $len = count($jsonHtml->valueRanges[2]->values);
 for($i = 1; $i<$len; $i++) {
-    array_push($locations , isset($jsonHtml->valueRanges[3]->values[$i][0]) ? $jsonHtml->valueRanges[3]->values[$i][0] : $not_arrived_message);
+    array_push($locations,isset($jsonHtml->valueRanges[3]->values[$i][0]) ? $jsonHtml->valueRanges[3]->values[$i][0] : $not_arrived_message);
 }
+
+$names = array_map('trim',$names);
+$locations = array_map('trim',$locations);
 
 $maxrows = count($locations) > count($names) ? count($locations) : count($names);
 
