@@ -24,6 +24,7 @@ for($i = 1; $i<$len; $i++) {
 }
 
 $names = array_map('trim',$names);
+$names = array_map('ucwords',$names);
 $locations = array_map('trim',$locations);
 
 $maxrows = count($locations) > count($names) ? count($locations) : count($names);
@@ -43,25 +44,22 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
                 location.reload();
         }
     </script>
+    <script> location.hash = (location.hash) ? location.hash : " "; </script> <!-- Resets scroll position -->
     <!-- Meta Tags/Site Setup -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="robots" content="index,follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1565C0">
     <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-86115073-5', 'auto');
-  ga('send', 'pageview');
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-86115073-5', 'auto');ga('send', 'pageview');
 
 </script>
+    <!-- Icons -->
     <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
     <link rel="icon" href="favicon.ico?" type="image/x-icon">
-
     <title>BCA Bus</title>
     
     <!-- CSS/JQuery/ScrollTo/Materialize -->
@@ -74,9 +72,6 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
     <script src="bcabus.js"></script>
     </head>
     <body class="blue lighten-5">
-    <a id="top"></a>
-        
-    <!-- Outer Wrapper -->
     <head>
     <!-- Search -->
     <nav class="search-nav blue">
@@ -92,12 +87,17 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
     </head>
     <!-- Town Display -->
     <main>
+        <?php if(!isset($_COOKIE['madeby']) and rand(0,1) == 1) { ?>
+        <div class="madeBy blue lighten-3 white-text center-align">Made by: Luke LaScala &amp; Adam Papenhausen<i onclick='setCookie("madeby", "none", 1000);' class="closeMadeBy material-icons secondary-content">close</i></div>
+        <?php } else { ?>
+	<div class="madeBy blue lighten-3 white-text center-align">Made by: Adam Papenhausen &amp; Luke LaScala<i onclick='setCookie("madeby", "none", 1000);' class="closeMadeBy material-icons secondary-content">close</i></div>
+	<?php } ?>
         <div class="row" style="padding-top: 2%">
             <div class="col l8 offset-l2 m6 offset-m3 s12">
                 <!-- Favorite Town -->
                 <?php if(isset($_COOKIE['favorite']) and in_array($_COOKIE['favorite'], $names)) { ?>
-                    <ul style="display: none" class="collection favoriteList">
-                        <li class="collection-item favoriteItem"><i onclick='setCookie("favorite", "none", -1);' style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h4 class="favoriteTown"><?php echo($_COOKIE['favorite']); ?></h4><h5 class="favoriteLocation"><?php echo(ucfirst($locations[array_search($_COOKIE['favorite'], $names)])); ?></h5>
+                    <ul class="collection favoriteList">
+                        <li class="collection-item favoriteItem"><i onclick='setCookie("favorite", "none", -1);' style="font-size: 3rem; color: gold; cursor: pointer" class="starIcon material-icons secondary-content">star</i><h5 class="favoriteTown"><?php echo($_COOKIE['favorite']); ?></h5><h5 class="favoriteLocation"><?php if($locations[array_search($_COOKIE['favorite'],$names)] == "") { echo("Check back later!"); } else { echo(ucfirst($locations[array_search($_COOKIE['favorite'], $names)])); }?></h5>
                         </li>
                     </ul>
                 <?php } ?>
@@ -114,49 +114,64 @@ $maxrows = count($locations) > count($names) ? count($locations) : count($names)
     </main>
     <!-- Footer -->
     <footer class="valign page-footer blue darken-2 light-blue-text text-lighten-5 center-align">
-        <div style="padding-bottom: 5%"><h3>BCA Bus</h3><h6>Find your bus from anywhere.</h6></div>
+        <div style="padding-bottom: 5%"><h3>BCA Bus</h3><h6>Find your bus from anywhere.</h6><h6>Questions? Answers? Email us at <span class="email">adapap@bergen.org</span> or <span class="email">luklas@bergen.org</span>.</h6></div>
         </footer>
     </body>
-        <style>
-    ::-webkit-input-placeholder {
-    color: white;
-    }
-
-    :-moz-placeholder { /* Firefox 18- */
-       color: white;  
-    }
-
-    ::-moz-placeholder {  /* Firefox 19+ */
-       color: white;  
-    }
-
-    :-ms-input-placeholder {  
-       color: white;  
-    }
-    body {
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
-    }
-
-    main {
-        flex: 1 0 auto;
-    }
-    @media only screen and (max-width: 768px) { /* Mobile */
-        .locationAlign {
-            margin-top: 5%;
+    <style>
+        #sitewrap {
         }
-        .starIcon1 {
-            margin-top: -3%;
+        ::-webkit-input-placeholder {
+        color: white;
         }
-    }
-    @media only screen and (min-width: 768px) { /* Desktop */
-        .locationAlign {
-            margin-top: 2%;
+        :-moz-placeholder { /* Firefox 18- */
+           color: white;  
         }
-        .starIcon1 {
-            margin-top: -1%;
+        ::-moz-placeholder {  /* Firefox 19+ */
+           color: white;  
         }
-    }
+        :-ms-input-placeholder {  
+           color: white;  
+        }
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .closeMadeBy {
+            padding-right: 1%;
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.5s ease;
+        }
+        .closeMadeBy:hover {
+            color: black;
+        }
+        .email {
+            border-bottom: 1px solid white;
+            color: white;
+        }
+        .madeBy {
+            width: 100%;
+            padding: 1% 0;
+        }
+        main {
+            flex: 1 0 auto;
+        }
+        @media only screen and (max-width: 768px) { /* Mobile */
+            .locationAlign {
+                margin-top: 5%;
+            }
+            .starIcon1 {
+                margin-top: -3%;
+            }
+        }
+        @media only screen and (min-width: 768px) { /* Desktop */
+            .locationAlign {
+                margin-top: 2%;
+            }
+            .starIcon1 {
+                margin-top: -1%;
+            }
+        }
     </style>
 </html>
