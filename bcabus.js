@@ -2,8 +2,7 @@ $(document).ready(function() {
     $favoriteList = $(".favoriteList");
     $madeBy = $(".madeBy");
     $closeMsg = $(".closeMadeBy");
-    
-    //Display message if cookie does not exist
+
     function getCookie(name) {
         var dc = document.cookie;
         var prefix = name + "=";
@@ -41,12 +40,10 @@ $(document).ready(function() {
             $townItem.not("[id*='" + $town + "']").hide(100);
             $(".collection-item[id*='" + $town + "']").show(100);
             $townHeader.hide(100);
-            $favoriteList.hide(100);
         }
         else {
             $townItem.show(100);
             $townHeader.show(100);
-            if (localStorage.getItem("favTown") !== null) { $favoriteList.show(100); };
         }
     })
 })
