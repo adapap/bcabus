@@ -39,9 +39,13 @@
 
 <body class="blue lighten-5" ng-app="myApp" ng-controller="SuperCtrl">
     <a href="https://docs.google.com/spreadsheets/d/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/edit#gid=0"><button>Live spreadsheet</button></a>
-    <ul class="collection">
-        <li class="collection-header" ng-repeat="x in towns">{{x}}</li>
-    </ul>
+    <div class="row">
+        <div class="column">
+            <ul class="collection">
+                <li class="collection-item" ng-repeat="x in towns">{{x}}</li>
+            </ul>
+        </div>
+    </div>
 </body><style>
     ul {
         -webkit-column-count: 3;
