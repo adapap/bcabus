@@ -10,6 +10,7 @@
         var app = angular.module('myApp', ['ngCookies']);
         app.controller('SuperCtrl',function($scope, $http, $timeout, $cookies) {
             $scope.getData = function() {
+                //https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU (Real)
                 $http.get("https://spreadsheets.google.com/feeds/list/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/od6/public/values?alt=json").success(function(response) {
                     $scope.locations = response.feed.entry;
                     var rowLength = $scope.locations.length;
@@ -32,24 +33,23 @@
                     }
                     $scope.towns = townsFirst.concat(townsSecond);
                     $scope.locations = locationsFirst.concat(locationsSecond);
+                    $scope.favorite = $scope.getCookie('favorite');
                 });
             }
             $scope.interval = function() {
                 $timeout(function() {
                     $scope.getData();
                     $scope.interval();
-                }, 5000)
+                }, 3000)
             };
             $scope.getData();
             $scope.interval();
             $scope.setCookie = function(cname, cvalue) {
                 $cookies.put(cname, cvalue);
-                console.log("Hi");
-                console.log($cookies.get('test');
             };
             $scope.getCookie = function(cname) {
                 return $cookies.get(cname);
-            }
+            };
             $scope.randomize = function(rand) {
                 if (rand == 1) {
                     return "Made by: Luke LaScala & Adam Papenhausen";
@@ -59,15 +59,16 @@
                 }
             };
         });
-    </script>
-    <script> //Set favorites
-        /*function setCookie(cname, cvalue, exdays) {
-                var d = new Date();
-                d.setTime(d.getTime() + (exdays*24*60*60*1000));
-                var expires = "expires="+ d.toUTCString();
-                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-                location.reload();
-        } */
+        app.directive('scrollTop', function() {
+            return {
+                restrict: 'A',
+                link: function(scope, $elm) {
+                    $elm.on('click', function() {
+                    $("html, body").animate({ scrollTop: 0 }, "fast");
+                    });
+                }
+            }
+        });
     </script>
     <!-- Meta Tags -->
     <meta charset="UTF-8" />
@@ -80,9 +81,7 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-86115073-5', 'auto');ga('send', 'pageview');
 
 </script>
-    <!-- Icons -->
-    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+    <!-- Icon -->
     <link rel="icon" href="favicon.ico?" type="image/x-icon">
     <!-- Dynamic Title -->
     <title>BCABus</title>
@@ -101,7 +100,7 @@
     <a href="https://docs.google.com/spreadsheets/d/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/edit#gid=0"><button>Live spreadsheet</button></a>
     <head>
     <!-- Search -->
-    <nav class="search-nav blue">
+    <nav class="mobile-content search-nav blue">
     <div class="nav-wrapper">
         <form>
             <div class="input-field">
@@ -113,13 +112,81 @@
     </nav>
     </head>
     
-    <!-- Town Display -->
+    <!-- Main Content: Made By & Towns -->
     <main>
-        <div class="madeBy blue lighten-3 white-text center-align">{{ randomize(Math.round(Math.random())) }}<i onclick='setCookie("madeby", "none", 1000);' class="closeMadeBy material-icons secondary-content">close</i></div>
+        <div ng-if="getCookie('madeby') !== 'none'" class="mobile-content madeBy blue lighten-3 white-text center-align">{{ randomize(Math.round(Math.random())) }}<i ng-click="setCookie('madeby', 'none');" class="closeMadeBy material-icons secondary-content">close</i></div>
 
-        <button ng-click="setCookie('test','testing')">Cookie</button>
-        <div></div>
-    </main>
+        <div class="row" style="padding-top: 2%">
+            <div class="col l12 m12 s12">
+                <!-- Favorite Town -->
+                <ul ng-if="getCookie('favorite') !== 'none' && getCookie('favorite') !== null" class="mobile-content collection favoriteList">
+                    <li class="collection-item favoriteItem"><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="mobile-content starIcon material-icons secondary-content">star</i><h5 class="favoriteTown">{{favorite}}</h5><h5 class="favoriteLocation">{{locations[0]}}</h5>
+                    </li>
+                </ul>
+                <!-- Town List -->
+                <ul class="split-col townList collection with-header">
+                    <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
+                    <li ng-repeat="x in towns" id='{{x}}' class="collection-item townItem row"><p class="col l8 m8 s8"><span>{{x}}</span></p><span class="locationAlign col l4 m4 s4 right-align">{{locations[$index]}}&nbsp;&nbsp;<i ng-click="setCookie('favorite',x);" style="color: grey; cursor: pointer" class="mobile-content starIcon1 material-icons secondary-content">star</i></span></li>
+                </ul>
+            </div>
+        </div>
+        </main>
 </body>
-
+<style>
+        #sitewrap {
+        }
+        ::-webkit-input-placeholder {
+        color: white;
+        }
+        :-moz-placeholder { /* Firefox 18- */
+           color: white;  
+        }
+        ::-moz-placeholder {  /* Firefox 19+ */
+           color: white;  
+        }
+        :-ms-input-placeholder {  
+           color: white;  
+        }
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+        .closeMadeBy {
+            padding-right: 1%;
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.5s ease;
+        }
+        .closeMadeBy:hover {
+            color: black;
+        }
+        .email {
+            border-bottom: 1px solid white;
+            color: white;
+        }
+        .madeBy {
+            width: 100%;
+            padding: 1% 0;
+        }
+        @media only screen and (max-width: 768px) { /* Mobile */
+            .locationAlign {
+                margin-top: 5%;
+            }
+            .starIcon1 {
+                margin-top: -3%;
+            }
+        }
+        @media only screen and (min-width: 768px) { /* Desktop */
+            .mobile-content {
+                visibility: hidden;
+                display: none;
+            }
+            .split-col {
+                -webkit-column-count: 3; /* Chrome, Safari, Opera */
+                -moz-column-count: 3; /* Firefox */
+                column-count: 3;
+            }
+        }
+    </style>
 </html>
