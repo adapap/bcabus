@@ -1,28 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <!-- External Links -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
-    <script>
-        var app = angular.module('myApp', []);
-        app.controller('SuperCtrl', function($scope, $http, $timeout) {
+    <script> //Get & Parse JSON
+        var app = angular.module('myApp', ['ngCookies']);
+        app.controller('SuperCtrl',function($scope, $http, $timeout, $cookies) {
             $scope.getData = function() {
                 $http.get("https://spreadsheets.google.com/feeds/list/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/od6/public/values?alt=json").success(function(response) {
                     $scope.locations = response.feed.entry;
                     var rowLength = $scope.locations.length;
                     var townsFirst = [];
                     var townsSecond = [];
+                    var locationsFirst = [];
+                    var locationsSecond = [];
                     for (var i = 0; i < rowLength; i++) {
                         if ($scope.locations[i].gsx$townsak.$t !== "") {
-                            townsFirst.push(`${$scope.locations[i].gsx$townsak.$t}: ${$scope.locations[i].gsx$locations1.$t}`);
+                            townsFirst.push($scope.locations[i].gsx$townsak.$t.trim());
+
+                            locationsFirst.push($scope.locations[i].gsx$locations1.$t.toUpperCase().trim());
                         }
                         if ($scope.locations[i].gsx$townslz.$t !== "") {
-                            townsSecond.push(`${$scope.locations[i].gsx$townslz.$t}: ${$scope.locations[i].gsx$locations2.$t}`);
+                            townsSecond.push($scope.locations[i].gsx$townslz.$t.trim());
+
+                            locationsSecond.push($scope.locations[i].gsx$locations2.$t.toUpperCase().trim());
                         }
 
                     }
                     $scope.towns = townsFirst.concat(townsSecond);
+                    $scope.locations = locationsFirst.concat(locationsSecond);
                 });
             }
             $scope.interval = function() {
@@ -33,22 +42,82 @@
             };
             $scope.getData();
             $scope.interval();
+            $scope.setCookie = function(cname, cvalue) {
+                $cookies.put(cname, cvalue);
+            };
+            $scope.getCookie = function(cname) {
+                return $cookies.get(cname);
+            }
+            $scope.randomize = function(rand) {
+                if (rand == 1) {
+                    return "Made by: Luke LaScala & Adam Papenhausen";
+                }
+                else {
+                    return "Made by: Adam Papenhausen & Luke LaScala";
+                }
+            };
         });
     </script>
+    <script> //Set favorites
+        /*function setCookie(cname, cvalue, exdays) {
+                var d = new Date();
+                d.setTime(d.getTime() + (exdays*24*60*60*1000));
+                var expires = "expires="+ d.toUTCString();
+                document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+                location.reload();
+        } */
+    </script>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="robots" content="index,follow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-86115073-5', 'auto');ga('send', 'pageview');
+
+</script>
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" href="favicon.ico?" type="image/x-icon">
+    <!-- Dynamic Title -->
+    <title>BCABus</title>
+
+    <!-- CSS/JQuery/ScrollTo/Materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="bcabus.js"></script>
 </head>
 
 <body class="blue lighten-5" ng-app="myApp" ng-controller="SuperCtrl">
     <a href="https://docs.google.com/spreadsheets/d/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/edit#gid=0"><button>Live spreadsheet</button></a>
-    <div class="row">
-        <div class="column">
-            <ul class="collection">
-                <li class="collection-item" ng-repeat="x in towns">{{x}}</li>
-            </ul>
-        </div>
+    <head>
+    <!-- Search -->
+    <nav class="search-nav blue">
+    <div class="nav-wrapper">
+        <form>
+            <div class="input-field">
+            <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autocomplete="off">
+            <label for="search"><i class="material-icons">search</i></label>
+            </div>
+        </form>
     </div>
-</body><style>
-    ul {
-        -webkit-column-count: 3;
-        }
-    </style>
+    </nav>
+    </head>
+    
+    <!-- Town Display -->
+    <main>
+        <div class="madeBy blue lighten-3 white-text center-align">{{ randomize(Math.round(Math.random())) }}<i onclick='setCookie("madeby", "none", 1000);' class="closeMadeBy material-icons secondary-content">close</i></div>
+
+        <button ng-click="setCookie('test','testing')">Cookie</button>
+        <div></div>
+    </main>
+</body>
+
 </html>
