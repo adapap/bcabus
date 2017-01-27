@@ -48,7 +48,7 @@
                 $timeout(function() {
                     $scope.getData();
                     $scope.interval();
-                }, 3000)
+                }, 2500)
             };
             $scope.getData();
             $scope.interval();
@@ -72,7 +72,7 @@
                 restrict: 'A',
                 link: function(scope, $elm) {
                     $elm.on('click', function() {
-                    $("html, body").animate({ scrollTop: 0 }, "fast");
+                    $("html, body").animate({ scrollTop: 0 }, "slow");
                     });
                 }
             }
@@ -94,13 +94,12 @@
     <!-- Dynamic Title -->
     <title>{{title}}BCABus</title>
 
-    <!-- CSS/JQuery/ScrollTo/Materialize -->
+    <!-- CSS/JQuery/Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.scrollto/2.1.2/jquery.scrollTo.min.js"></script>
     <script src="bcabus.js"></script>
 </head>
 
@@ -126,20 +125,31 @@
     <main>
         <div ng-if="getCookie('madeby') !== 'none'" class="mobile-content madeBy blue lighten-3 white-text center-align">{{ randomize(Math.round(Math.random())) }}<i ng-click="setCookie('madeby', 'none');" class="closeMadeBy material-icons secondary-content">close</i></div>
 
-        <div class="row" style="padding-top: 2%">
+        <div class="row mobile-content" style="padding-top: 2%">
             <div class="col l12 m12 s12">
                 <!-- Favorite Town -->
-                <ul ng-if="getCookie('favorite') && getCookie('favorite') !== 'none'" class="mobile-content collection favoriteList">
-                    <li class="collection-item favoriteItem"><div style="margin-top: -4%; margin-bottom: -2%; margin-left: -19%" class="valign-wrapper row"><h5 class="valign col l9 m9 s9 favoriteTown">{{favorite}}</h5><p style="margin-left: 0; margin-right: -5%;" class="col l2 m2 s2"><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="mobile-content valign material-icons">star</i></p></div><h5 style="margin: -1% 0" class="favoriteLocation">{{favoriteLocation}}</h5>
+                <ul ng-if="getCookie('favorite') && getCookie('favorite') !== 'none'" class="collection favoriteList">
+                    <li class="collection-item favoriteItem"><div style="margin-top: -4%; margin-bottom: -2%;" class="valign-wrapper row"><h5 class="valign col l10 m10 s10 favoriteTown">{{favorite}}</h5><p style="margin-left: 0" class="col l2 m2 s2"><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="valign material-icons">star</i></p></div><div class="row"><h5 style="margin-bottom: -5%; margin-top: 0" class="col l10 m10 s10 favoriteLocation">{{favoriteLocation}}</h5></div>
                     </li>
                 </ul>
                 <!-- Town List -->
                 <ul class="townList collection with-header">
                     <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
-                    <li ng-repeat="x in towns" style="height: 5%;" id='{{x}}' class="split-col noPad collection-item townItem"><div style="margin-top: -2%; margin-bottom: -3%; margin-left: -3%" class="valign-wrapper row"><p class="valign col l9 m9 s9"><span>{{x}}</span></p><p class="valign locationAlign right-align col l1 m1 s1"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p><p class="valign col l1 m1 s1"><i ng-click="setCookie('favorite',x);" style="color: grey; cursor: pointer" class="mobile-content material-icons valign">star</i></p>
-                        </li>
+                    <li ng-repeat="x in towns" style="height: 5%;" id='{{x}}' class="noPad collection-item townItem"><div style="margin-top: -2%; margin-bottom: -3%; margin-left: -3%" class="valign-wrapper row"><p class="valign col l9 m9 s9"><span>{{x}}</span></p><p class="valign locationAlign right-align col l1 m1 s1"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p><p ng-click="setCookie('favorite',x);" scroll-top class="valign col l1 m1 s1"><i style="color: grey; cursor: pointer" class="material-icons valign">star</i></p>
+                    </li>
                 </ul>
             </div>
+        </div>
+
+        <div class="not-mobile row" style="padding-top: 2%">
+        <div class="col l12 m12 s12">
+            <!-- Cards for Large Screens -->
+            <div ng-repeat="x in towns" class="card white">
+                <div class="card-content black-text">
+                    <p>{{x}}</p><p>{{locations[$index] || "Not here"}}</p>
+                </div>
+            </div>
+        </div>
         </div>
         </main>
 
@@ -172,10 +182,6 @@
             padding-right: 1%;
             color: white;
             font-size: 1.5rem;
-            transition: color 0.5s ease;
-        }
-        .closeMadeBy:hover {
-            color: black;
         }
         .email {
             border-bottom: 1px solid white;
@@ -192,19 +198,15 @@
             padding: 1% 0;
         }
         @media only screen and (max-width: 768px) { /* Mobile */
+            .not-mobile {
+                visibility: hidden;
+                display: none;
+            }
         }
         @media only screen and (min-width: 768px) { /* Desktop */
             .mobile-content {
                 visibility: hidden;
                 display: none;
-            }
-            .split-col {
-                /* -webkit-column-count: 3; Chrome, Safari, Opera
-                -moz-column-count: 3; Firefox 
-                column-count: 3; */
-                width: 32%;
-                border: 1px solid black;
-                display: inline-block;
             }
         }
     </style>
