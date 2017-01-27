@@ -142,9 +142,9 @@
         </div>
 
         <div class="not-mobile row" style="padding-top: 2%">
-        <div class="col l12 m12 s12 split-col">
+        <div class="col l12 m12 s12 row">
             <!-- Cards for Large Screens -->
-            <div ng-repeat="x in towns" class="card white">
+            <div ng-repeat="x in towns" class="col l4 m4 s4 card white">
                 <div class="card-content black-text">
                     <p>{{x}}</p><p>{{locations[$index] || "Not here"}}</p>
                 </div>
@@ -207,11 +207,6 @@
             .mobile-content {
                 visibility: hidden;
                 display: none;
-            }
-            .split-col {
-                -webkit-column-count: 3;
-                -moz-column-count: 3;
-                column-count: 3;
             }
         }
     </style>
