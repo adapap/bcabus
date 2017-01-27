@@ -44,6 +44,7 @@
             $scope.interval();
             $scope.setCookie = function(cname, cvalue) {
                 $cookies.put(cname, cvalue);
+                console.log($cookies.get('test');
             };
             $scope.getCookie = function(cname) {
                 return $cookies.get(cname);
