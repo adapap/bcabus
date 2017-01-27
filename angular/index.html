@@ -34,7 +34,14 @@
                     $scope.towns = townsFirst.concat(townsSecond);
                     $scope.locations = locationsFirst.concat(locationsSecond);
                     $scope.favorite = $scope.getCookie('favorite');
-                    $scope.favoriteLocation = $scope.locations[$scope.towns.indexOf($scope.favorite)];
+                    if ($scope.locations[$scope.towns.indexOf($scope.favorite)] !== '') {
+                        $scope.favoriteLocation = $scope.locations[$scope.towns.indexOf($scope.favorite)];
+                        $scope.title = `${$scope.favorite} · ${$scope.favoriteLocation} | `;
+                    }
+                    else {
+                        $scope.favoriteLocation = "Not here yet!"
+                        $scope.title = ``;
+                    }
                 });
             }
             $scope.interval = function() {
@@ -85,7 +92,7 @@
     <!-- Icon -->
     <link rel="icon" href="favicon.ico?" type="image/x-icon">
     <!-- Dynamic Title -->
-    <title>BCABus</title>
+    <title>{{title}}BCABus</title>
 
     <!-- CSS/JQuery/ScrollTo/Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
@@ -98,7 +105,9 @@
 </head>
 
 <body class="blue lighten-5" ng-app="myApp" ng-controller="SuperCtrl">
-    <a href="https://docs.google.com/spreadsheets/d/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/edit#gid=0"><button>Live spreadsheet</button></a>
+<!-- Button to spreadsheet
+    <a href="https://docs.google.com/spreadsheets/d/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/edit#gid=0"><button>Live spreadsheet</button></a> -->
+    <!-- Test div -->
     <head>
     <!-- Search -->
     <nav class="mobile-content search-nav blue">
@@ -120,19 +129,24 @@
         <div class="row" style="padding-top: 2%">
             <div class="col l12 m12 s12">
                 <!-- Favorite Town -->
-                <ul ng-if="getCookie('favorite')" class="mobile-content collection favoriteList">
-                    <li class="collection-item favoriteItem"><div class="valign-wrapper"><h5 class="valign favoriteTown">{{favorite}}</h5><h5 class="valign favoriteLocation">{{favoriteLocation}}</h5><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="mobile-content valign material-icons">star</i></div>
+                <ul ng-if="getCookie('favorite') && getCookie('favorite') !== 'none'" class="mobile-content collection favoriteList">
+                    <li class="collection-item favoriteItem"><div style="margin-top: -4%; margin-bottom: -2%; margin-left: -19%" class="valign-wrapper row"><h5 class="valign col l9 m9 s9 favoriteTown">{{favorite}}</h5><p style="margin-left: 0; margin-right: -5%;" class="col l2 m2 s2"><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="mobile-content valign material-icons">star</i></p></div><h5 style="margin: -1% 0" class="favoriteLocation">{{favoriteLocation}}</h5>
                     </li>
                 </ul>
                 <!-- Town List -->
-                <ul class="split-col townList collection with-header">
+                <ul class="townList collection with-header">
                     <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
-                    <li ng-repeat="x in towns" id='{{x}}' class="noPad collection-item townItem"><div class="border valign-wrapper row"><p class="valign co9 l9 m9 s7"><span>{{x}}</span></p><p class="valign locationAlign col l2 m2 s2"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p><i ng-click="setCookie('favorite',x);" style="color: grey; cursor: pointer" class="mobile-content material-icons valign right-align">star</i></span></div>
-                    </li>
+                    <li ng-repeat="x in towns" style="height: 5%;" id='{{x}}' class="split-col noPad collection-item townItem"><div style="margin-top: -2%; margin-bottom: -3%; margin-left: -3%" class="valign-wrapper row"><p class="valign col l9 m9 s9"><span>{{x}}</span></p><p class="valign locationAlign right-align col l1 m1 s1"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p><p class="valign col l1 m1 s1"><i ng-click="setCookie('favorite',x);" style="color: grey; cursor: pointer" class="mobile-content material-icons valign">star</i></p>
+                        </li>
                 </ul>
             </div>
         </div>
         </main>
+
+        <!-- Footer -->
+        <footer class="mobile-content valign page-footer blue darken-2 light-blue-text text-lighten-5 center-align">
+        <div style="padding-bottom: 5%"><h3>BCA Bus</h3><h6>Find your bus from anywhere.</h6><h6>Questions? Answers? Email us at <span class="email">adapap@bergen.org</span> or <span class="email">luklas@bergen.org</span>.</h6></div>
+        </footer>
 </body>
 <style>
         #sitewrap {
@@ -168,7 +182,7 @@
             color: white;
         }
         .border {
-            border: 1px solid black;
+            border: 1px solid red;
         }
         .pullLeft {
             left: 5%;
@@ -185,9 +199,12 @@
                 display: none;
             }
             .split-col {
-                -webkit-column-count: 3; /* Chrome, Safari, Opera */
-                -moz-column-count: 3; /* Firefox */
-                column-count: 3;
+                /* -webkit-column-count: 3; Chrome, Safari, Opera
+                -moz-column-count: 3; Firefox 
+                column-count: 3; */
+                width: 32%;
+                border: 1px solid black;
+                display: inline-block;
             }
         }
     </style>
