@@ -34,6 +34,7 @@
                     $scope.towns = townsFirst.concat(townsSecond);
                     $scope.locations = locationsFirst.concat(locationsSecond);
                     $scope.favorite = $scope.getCookie('favorite');
+                    $scope.favoriteLocation = $scope.locations[$scope.towns.indexOf($scope.favorite)];
                 });
             }
             $scope.interval = function() {
@@ -119,14 +120,15 @@
         <div class="row" style="padding-top: 2%">
             <div class="col l12 m12 s12">
                 <!-- Favorite Town -->
-                <ul ng-if="getCookie('favorite') !== 'none' && getCookie('favorite') !== null" class="mobile-content collection favoriteList">
-                    <li class="collection-item favoriteItem"><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="mobile-content starIcon material-icons secondary-content">star</i><h5 class="favoriteTown">{{favorite}}</h5><h5 class="favoriteLocation">{{locations[0]}}</h5>
+                <ul ng-if="getCookie('favorite')" class="mobile-content collection favoriteList">
+                    <li class="collection-item favoriteItem"><div class="valign-wrapper"><h5 class="valign favoriteTown">{{favorite}}</h5><h5 class="valign favoriteLocation">{{favoriteLocation}}</h5><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="mobile-content valign material-icons">star</i></div>
                     </li>
                 </ul>
                 <!-- Town List -->
                 <ul class="split-col townList collection with-header">
                     <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
-                    <li ng-repeat="x in towns" id='{{x}}' class="collection-item townItem row"><p class="col l8 m8 s8"><span>{{x}}</span></p><span class="locationAlign col l4 m4 s4 right-align">{{locations[$index]}}&nbsp;&nbsp;<i ng-click="setCookie('favorite',x);" style="color: grey; cursor: pointer" class="mobile-content starIcon1 material-icons secondary-content">star</i></span></li>
+                    <li ng-repeat="x in towns" id='{{x}}' class="noPad collection-item townItem"><div class="border valign-wrapper row"><p class="valign co9 l9 m9 s7"><span>{{x}}</span></p><p class="valign locationAlign col l2 m2 s2"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p><i ng-click="setCookie('favorite',x);" style="color: grey; cursor: pointer" class="mobile-content material-icons valign right-align">star</i></span></div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -165,17 +167,17 @@
             border-bottom: 1px solid white;
             color: white;
         }
+        .border {
+            border: 1px solid black;
+        }
+        .pullLeft {
+            left: 5%;
+        }
         .madeBy {
             width: 100%;
             padding: 1% 0;
         }
         @media only screen and (max-width: 768px) { /* Mobile */
-            .locationAlign {
-                margin-top: 5%;
-            }
-            .starIcon1 {
-                margin-top: -3%;
-            }
         }
         @media only screen and (min-width: 768px) { /* Desktop */
             .mobile-content {
