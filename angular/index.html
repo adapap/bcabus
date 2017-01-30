@@ -164,7 +164,7 @@
         <div class="not-mobile row">
         <div class="col l12 m12 s12 row">
             <!-- Cards for Large Screens -->
-            <div style="margin-bottom: -1%" ng-repeat="x in towns" class="col xl2 l4 m6 card white">
+            <div style="margin-bottom: -1%" ng-repeat="x in towns" class="col xl3 l3 m6 card white">
                 <div class="card-content black-text">
                     <p>{{x}}</p><p>{{locations[$index] || "Not here"}}</p>
                 </div>
@@ -231,7 +231,7 @@
         }
     </style>
     <style> /* XL Size for TV */
-@media only screen and (min-width: 2000px) {
+@media only screen and (min-width: 1600px) {
     .row .col.xl1 {
         width:8.33333%;
         margin-left:0;
