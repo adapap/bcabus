@@ -40,7 +40,7 @@
                     }
                     else {
                         $scope.favoriteLocation = "Not here yet!"
-                        $scope.title = ``;
+                        $scope.title = "";
                     }
                 });
             }
@@ -91,8 +91,6 @@
 </script>
     <!-- Icon -->
     <link rel="icon" href="favicon.ico?" type="image/x-icon">
-    <!-- Dynamic Title -->
-    <title>{{title}}BCABus</title>
 
     <!-- CSS/JQuery/Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
@@ -104,9 +102,8 @@
 </head>
 
 <body class="blue lighten-5" ng-app="myApp" ng-controller="SuperCtrl">
-<!-- Button to spreadsheet
-    <a href="https://docs.google.com/spreadsheets/d/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/edit#gid=0"><button>Live spreadsheet</button></a> -->
-    <!-- Test div -->
+<!-- Dynamic Title -->
+    <title>{{title}}BCABus</title>
     <head>
     <!-- Search -->
     <nav class="mobile-content search-nav blue">
@@ -119,6 +116,12 @@
         </form>
     </div>
     </nav>
+    <!-- Large Header -->
+    <nav class="not-mobile blue">
+        <div class="nav-wrapper">
+            <a style="padding: 0 2%" href="#" class="brand-logo">BCABus</a>
+        </div>
+    </nav>
     </head>
     
     <!-- Main Content: Made By & Towns -->
@@ -127,24 +130,41 @@
 
         <div class="row mobile-content" style="padding-top: 2%">
             <div class="col l12 m12 s12">
+
                 <!-- Favorite Town -->
                 <ul ng-if="getCookie('favorite') && getCookie('favorite') !== 'none'" class="collection favoriteList">
-                    <li class="collection-item favoriteItem"><div style="margin-top: -4%; margin-bottom: -2%;" class="valign-wrapper row"><h5 class="valign col l10 m10 s10 favoriteTown">{{favorite}}</h5><p style="margin-left: 0" class="col l2 m2 s2"><i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="valign material-icons">star</i></p></div><div class="row"><h5 style="margin-bottom: -5%; margin-top: 0" class="col l10 m10 s10 favoriteLocation">{{favoriteLocation}}</h5></div>
-                    </li>
+                <li class="collection-item favoriteItem">
+                <div style="margin-top: -4%; margin-bottom: -2%;" class="valign-wrapper row">
+                    <h5 class="valign col l10 m10 s10 favoriteTown">{{favorite}}</h5>
+                    <p style="margin-left: 0" class="col l2 m2 s2">
+                    <i ng-click="setCookie('favorite', 'none');" style="font-size: 3rem; color: gold; cursor: pointer" class="valign material-icons">star</i>
+                    </p>
+                </div>
+                <div class="row">
+                    <h5 style="margin-bottom: -5%; margin-top: 0" class="col l10 m10 s10 favoriteLocation">{{favoriteLocation}}</h5>
+                </div>
+                </li>
                 </ul>
+
                 <!-- Town List -->
                 <ul class="townList collection with-header">
                     <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
-                    <li ng-repeat="x in towns" style="height: 5%;" id='{{x}}' class="noPad collection-item townItem"><div style="margin-top: -2%; margin-bottom: -3%; margin-left: -3%" class="valign-wrapper row"><p class="valign col l9 m9 s9"><span>{{x}}</span></p><p class="valign locationAlign right-align col l1 m1 s1"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p><p ng-click="setCookie('favorite',x);" scroll-top class="valign col l1 m1 s1"><i style="color: grey; cursor: pointer" class="material-icons valign">star</i></p>
+                    <li ng-repeat="x in towns" style="height: 5%;" id='{{x}}' class="noPad collection-item townItem">
+                        <div style="margin-top: -2%; margin-bottom: -3%; margin-left: -3%" class="valign-wrapper row">
+                        <p class="valign col l9 m9 s9"><span>{{x}}</span></p>
+                        <p class="valign locationAlign right-align col l1 m1 s1"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p>
+                        <p ng-click="setCookie('favorite',x);" scroll-top class="valign col l1 m1 s1">
+                        <i style="color: grey; cursor: pointer" class="material-icons valign">star</i></p>
+                        </div>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="not-mobile row" style="padding-top: 2%">
+        <div class="not-mobile row">
         <div class="col l12 m12 s12 row">
             <!-- Cards for Large Screens -->
-            <div ng-repeat="x in towns" class="col l3 m3 s3 card white">
+            <div style="margin-bottom: -1%" ng-repeat="x in towns" class="col xl2 l4 m6 card white">
                 <div class="card-content black-text">
                     <p>{{x}}</p><p>{{locations[$index] || "Not here"}}</p>
                 </div>
@@ -209,5 +229,116 @@
                 display: none;
             }
         }
+    </style>
+    <style> /* XL Size for TV */
+@media only screen and (min-width: 2000px) {
+    .row .col.xl1 {
+        width:8.33333%;
+        margin-left:0;
+    }
+
+    .row .col.xl2 {
+        width:16.66667%;
+        margin-left:0;
+    }
+
+    .row .col.xl3 {
+        width:25%;
+        margin-left:0;
+    }
+
+    .row .col.xl4 {
+        width:33.33333%;
+        margin-left:0;
+    }
+
+    .row .col.xl5 {
+        width:41.66667%;
+        margin-left:0;
+    }
+
+    .row .col.xl6 {
+        width:50%;
+        margin-left:0;
+    }
+
+    .row .col.xl7 {
+        width:58.33333%;
+        margin-left:0;
+    }
+
+    .row .col.xl8 {
+        width:66.66667%;
+        margin-left:0;
+    }
+
+    .row .col.xl9 {
+        width:75%;
+        margin-left:0;
+    }
+
+    .row .col.xl10 {
+        width:83.33333%;
+        margin-left:0;
+    }
+
+    .row .col.xl11 {
+        width:91.66667%;
+        margin-left:0;
+    }
+
+    .row .col.xl12 {
+        width:100%;
+        margin-left:0;
+    }
+
+    .row .col.offset-xl1 {
+        margin-left:8.33333%;
+    }
+
+    .row .col.offset-xl2 {
+        margin-left:16.66667%;
+    }
+
+    .row .col.offset-xl3 {
+        margin-left:25%;
+    }
+
+    .row .col.offset-xl4 {
+        margin-left:33.33333%;
+    }
+
+    .row .col.offset-xl5 {
+        margin-left:41.66667%;
+    }
+
+    .row .col.offset-xl6 {
+        margin-left:50%;
+    }
+
+    .row .col.offset-xl7 {
+        margin-left:58.33333%;
+    }
+
+    .row .col.offset-xl8 {
+        margin-left:66.66667%;
+    }
+
+    .row .col.offset-xl9 {
+        margin-left:75%;
+    }
+
+    .row .col.offset-xl10 {
+        margin-left:83.33333%;
+    }
+
+    .row .col.offset-xl11 {
+        margin-left:91.66667%;
+    }
+
+    .row .col.offset-xl12 {
+        margin-left:100%;
+    }
+}
     </style>
 </html>
