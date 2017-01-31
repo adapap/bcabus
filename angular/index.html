@@ -9,9 +9,11 @@
     <script> //Get & Parse JSON
         var app = angular.module('myApp', ['ngCookies']);
         app.controller('SuperCtrl',function($scope, $http, $timeout, $cookies) {
+            $scope.townSearch = "";
             $scope.getData = function() {
-                //https://sheets.googleapis.com/v4/spreadsheets/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/values:batchGet?ranges=A%3AA&ranges=B%3AB&ranges=C%3AC&ranges=D%3AD&key=AIzaSyDwH-ws7le4K2YbeJ-IOVv200LFuTVuOtU (Real)
-                $http.get("https://spreadsheets.google.com/feeds/list/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/od6/public/values?alt=json").success(function(response) {
+                //Sample: https://spreadsheets.google.com/feeds/list/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/od6/public/values?alt=json
+                //Real: https://spreadsheets.google.com/feeds/list/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/od6/public/values?alt=json
+                $http.get("https://spreadsheets.google.com/feeds/list/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/od6/public/values?alt=json").success(function(response) {
                     $scope.locations = response.feed.entry;
                     var rowLength = $scope.locations.length;
                     var townsFirst = [];
@@ -19,15 +21,15 @@
                     var locationsFirst = [];
                     var locationsSecond = [];
                     for (var i = 0; i < rowLength; i++) {
-                        if ($scope.locations[i].gsx$townsak.$t !== "") {
-                            townsFirst.push($scope.locations[i].gsx$townsak.$t.trim());
+                        if ($scope.locations[i].gsx$townsbuslocation.$t !== "") {
+                            townsFirst.push($scope.locations[i].gsx$townsbuslocation.$t.trim());
 
-                            locationsFirst.push($scope.locations[i].gsx$locations1.$t.toUpperCase().trim());
+                            locationsFirst.push($scope.locations[i].gsx$_cokwr.$t.toUpperCase().trim());
                         }
-                        if ($scope.locations[i].gsx$townslz.$t !== "") {
-                            townsSecond.push($scope.locations[i].gsx$townslz.$t.trim());
+                        if ($scope.locations[i].gsx$townsbuslocation_2.$t !== "") {
+                            townsSecond.push($scope.locations[i].gsx$townsbuslocation_2.$t.trim());
 
-                            locationsSecond.push($scope.locations[i].gsx$locations2.$t.toUpperCase().trim());
+                            locationsSecond.push($scope.locations[i].gsx$_cre1l.$t.toUpperCase().trim());
                         }
 
                     }
@@ -36,11 +38,9 @@
                     $scope.favorite = $scope.getCookie('favorite');
                     if ($scope.locations[$scope.towns.indexOf($scope.favorite)] !== '') {
                         $scope.favoriteLocation = $scope.locations[$scope.towns.indexOf($scope.favorite)];
-                        $scope.title = `${$scope.favorite} · ${$scope.favoriteLocation} | `;
                     }
                     else {
                         $scope.favoriteLocation = "Not here yet!"
-                        $scope.title = "";
                     }
                 });
             }
@@ -95,22 +95,21 @@
     <!-- CSS/JQuery/Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="bcabus.js"></script>
+    <!-- Dynamic Title -->
+    <title>BCABus</title>
 </head>
 
 <body class="blue lighten-5" ng-app="myApp" ng-controller="SuperCtrl">
-<!-- Dynamic Title -->
-    <title>{{title}}BCABus</title>
     <head>
     <!-- Search -->
     <nav class="mobile-content search-nav blue">
     <div class="nav-wrapper">
         <form>
             <div class="input-field">
-            <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autocomplete="off">
+            <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autocomplete="off" ng-model="townSearch">
             <label for="search"><i class="material-icons">search</i></label>
             </div>
         </form>
@@ -132,7 +131,7 @@
             <div class="col l12 m12 s12">
 
                 <!-- Favorite Town -->
-                <ul ng-if="getCookie('favorite') && getCookie('favorite') !== 'none'" class="collection favoriteList">
+                <ul ng-show="townSearch == ''" ng-if="getCookie('favorite') && getCookie('favorite') !== 'none'" class="collection favoriteList">
                 <li class="collection-item favoriteItem">
                 <div style="margin-top: -4%; margin-bottom: -2%;" class="valign-wrapper row">
                     <h5 class="valign col l10 m10 s10 favoriteTown">{{favorite}}</h5>
@@ -148,8 +147,8 @@
 
                 <!-- Town List -->
                 <ul class="townList collection with-header">
-                    <li class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
-                    <li ng-repeat="x in towns" style="height: 5%;" id='{{x}}' class="noPad collection-item townItem">
+                    <li ng-show="townSearch == ''" class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
+                    <li ng-repeat="x in towns | filter: townSearch" style="height: 5%;" id='{{x|lowercase}}' class="noPad collection-item townItem">
                         <div style="margin-top: -2%; margin-bottom: -3%; margin-left: -3%" class="valign-wrapper row">
                         <p class="valign col l9 m9 s9"><span>{{x}}</span></p>
                         <p class="valign locationAlign right-align col l1 m1 s1"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p>
@@ -164,7 +163,7 @@
         <div class="not-mobile row">
         <div class="col l12 m12 s12 row">
             <!-- Cards for Large Screens -->
-            <div style="margin-bottom: -1%" ng-repeat="x in towns" class="col xl3 l4 m6 card white">
+            <div ng-repeat="x in towns" class="col xl l4 m6 card white">
                 <div class="card-content black-text">
                     <p>{{x}}</p><p>{{locations[$index] || "Not here"}}</p>
                 </div>
@@ -192,6 +191,17 @@
         }
         :-ms-input-placeholder {  
            color: white;  
+        }
+        * {
+          -webkit-touch-callout: none; /* iOS Safari */
+          -webkit-user-select: none; /* Safari */
+          -khtml-user-select: none; /* Konqueror HTML */
+          -moz-user-select: none; /* Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none;
+          outline: none;
+          -webkit-tap-highlight-color: rgba(255, 255, 255, 0); 
+          -webkit-tap-highlight-color: transparent;
         }
         body {
             display: flex;
@@ -228,121 +238,20 @@
                 visibility: hidden;
                 display: none;
             }
+            .xl {
+                margin-bottom: -1%;
+            }
         }
     </style>
-    <style> /* XL Size for TV */
-@media only screen and (min-width: 1600px) {
+    <style> /* XL Size for TV & No Selection*/
+@media only screen and (min-width: 1900px) {
     p {
-       font-size: 1.5rem;
-       font-weight: 400;
+       font-size: 1.7rem;
     }
-    .row .col.xl1 {
-        width:8.33333%;
+    .row .col.xl {
+        width:20%;
         margin-left:0;
+        padding: 0.2% 0;
     }
-
-    .row .col.xl2 {
-        width:16.66667%;
-        margin-left:0;
-    }
-
-    .row .col.xl3 {
-        width:25%;
-        margin-left:0;
-    }
-
-    .row .col.xl4 {
-        width:33.33333%;
-        margin-left:0;
-    }
-
-    .row .col.xl5 {
-        width:41.66667%;
-        margin-left:0;
-    }
-
-    .row .col.xl6 {
-        width:50%;
-        margin-left:0;
-    }
-
-    .row .col.xl7 {
-        width:58.33333%;
-        margin-left:0;
-    }
-
-    .row .col.xl8 {
-        width:66.66667%;
-        margin-left:0;
-    }
-
-    .row .col.xl9 {
-        width:75%;
-        margin-left:0;
-    }
-
-    .row .col.xl10 {
-        width:83.33333%;
-        margin-left:0;
-    }
-
-    .row .col.xl11 {
-        width:91.66667%;
-        margin-left:0;
-    }
-
-    .row .col.xl12 {
-        width:100%;
-        margin-left:0;
-    }
-
-    .row .col.offset-xl1 {
-        margin-left:8.33333%;
-    }
-
-    .row .col.offset-xl2 {
-        margin-left:16.66667%;
-    }
-
-    .row .col.offset-xl3 {
-        margin-left:25%;
-    }
-
-    .row .col.offset-xl4 {
-        margin-left:33.33333%;
-    }
-
-    .row .col.offset-xl5 {
-        margin-left:41.66667%;
-    }
-
-    .row .col.offset-xl6 {
-        margin-left:50%;
-    }
-
-    .row .col.offset-xl7 {
-        margin-left:58.33333%;
-    }
-
-    .row .col.offset-xl8 {
-        margin-left:66.66667%;
-    }
-
-    .row .col.offset-xl9 {
-        margin-left:75%;
-    }
-
-    .row .col.offset-xl10 {
-        margin-left:83.33333%;
-    }
-
-    .row .col.offset-xl11 {
-        margin-left:91.66667%;
-    }
-
-    .row .col.offset-xl12 {
-        margin-left:100%;
-    }
-}
     </style>
 </html>
