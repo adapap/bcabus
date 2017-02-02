@@ -18,33 +18,30 @@
                     var rowLength = $scope.locations.length;
                     var townsFirst = [];
                     var townsSecond = [];
-                    var locationsFirst = [];
-                    var locationsSecond = [];
                     for (var i = 0; i < rowLength; i++) {
                         if ($scope.locations[i].gsx$townsbuslocation.$t !== "") {
-                            townsFirst.push($scope.locations[i].gsx$townsbuslocation.$t.trim());
+                            townsFirst.push({"name": $scope.locations[i].gsx$townsbuslocation.$t.trim()});
                             if ($scope.locations[i].hasOwnProperty('gsx$_cokwr')) {
-                                locationsFirst.push($scope.locations[i].gsx$_cokwr.$t.toUpperCase().trim());
+                                townsFirst[i].location = $scope.locations[i].gsx$_cokwr.$t.toUpperCase().trim();
                             }
-                            else { locationsFirst.push(""); }
+                            else { townsFirst[i].location = ""; }
                         }
                         if ($scope.locations[i].gsx$townsbuslocation_2.$t !== "") {
-                            townsSecond.push($scope.locations[i].gsx$townsbuslocation_2.$t.trim());
+                            townsSecond.push({"name": $scope.locations[i].gsx$townsbuslocation_2.$t.trim()});
                             if ($scope.locations[i].hasOwnProperty('gsx$_cre1l')) {
-                                locationsSecond.push($scope.locations[i].gsx$_cre1l.$t.toUpperCase().trim());
+                                townsSecond[i].location = $scope.locations[i].gsx$_cre1l.$t.toUpperCase().trim();
                             }
-                            else { locationsSecond.push(""); }
+                            else { townsSecond[i].location = ""; }
                         }
 
                     }
                     $scope.towns = townsFirst.concat(townsSecond);
-                    $scope.locations = locationsFirst.concat(locationsSecond);
                     $scope.favorite = $scope.getCookie('favorite');
                     if ($scope.favorite !== false) {
                       $scope.favoriteLocation = [];
                         for (i = 0; i < $scope.favorite.length; i++) {
-                            if ($scope.locations[$scope.towns.indexOf($scope.favorite[i])] !== '') {
-                                $scope.favoriteLocation[i] = $scope.locations[$scope.towns.indexOf($scope.favorite[i])];
+                            if ($scope.favorite[i].location !== '') {
+                                $scope.favoriteLocation[i] = $scope.favorite[i].location;
                             }
                             else {
                                 $scope.favoriteLocation[i] = "Not here yet!"
@@ -74,14 +71,13 @@
                 else { return; }
             };
             $scope.removeFavorite = function(val) {
-                if ($scope.favorite.indexOf(val) > 0) {
+                if ($scope.favorite.indexOf(val) > -1 && $scope.favorite.length > 1) {
                     $scope.favorite.splice($scope.favorite.indexOf(val), 1);
                     $cookies.put('favorite',JSON.stringify($scope.favorite));
                 }
-                else if ($scope.favorite.indexOf(val) == 0) {
+                else if ($scope.favorite.length == 1) {
                   $cookies.put('favorite','none');
                 }
-                console.log($cookies.get('favorite'));
             }
             $scope.setCookie = function(cname, cvalue) {
                 $cookies.put(cname, cvalue);
@@ -145,7 +141,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
     <script src="bcabus.js"></script>
-    <!-- Dynamic Title -->
     <title>BCABus</title>
 </head>
 
@@ -181,7 +176,7 @@
                 <ul ng-show="townSearch == ''" ng-if="getCookie('favorite') && getCookie('favorite') !== true" class="collection favoriteList">
                 <li ng-repeat="z in favorite" class="collection-item favoriteItem">
                 <div style="margin-top: -4%; margin-bottom: -2%;" class="valign-wrapper row">
-                    <h5 class="valign col l10 m10 s10 favoriteTown">{{z}}</h5>
+                    <h5 class="valign col l10 m10 s10 favoriteTown">{{z.name}}</h5>
                     <p style="margin-left: 0" class="col l2 m2 s2">
                     <i ng-click="removeFavorite(z)" style="font-size: 3rem; color: gold; cursor: pointer" class="valign material-icons">star</i>
                     </p>
@@ -197,8 +192,8 @@
                     <li ng-show="townSearch == ''" class="collection-header townList-header valign-wrapper"><h2>Town List</h2></li>
                     <li ng-repeat="x in towns | filter: townSearch" style="height: 5%;" id='{{x|lowercase}}' class="noPad collection-item townItem">
                         <div style="margin-top: -2%; margin-bottom: -3%; margin-left: -3%" class="valign-wrapper row">
-                        <p class="valign col l9 m9 s9"><span>{{x}}</span></p>
-                        <p class="valign locationAlign right-align col l1 m1 s1"><span>{{locations[$index]}}&nbsp;&nbsp;</span></p>
+                        <p class="valign col l9 m9 s9"><span>{{x.name}}</span></p>
+                        <p class="valign locationAlign right-align col l1 m1 s1"><span>{{x.location}}&nbsp;&nbsp;</span></p>
                         <p ng-click="addFavorite(x)" scroll-top class="valign col l1 m1 s1">
                         <i style="color: grey; cursor: pointer" class="material-icons valign">star</i></p>
                         </div>
