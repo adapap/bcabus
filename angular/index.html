@@ -81,6 +81,7 @@
             }
             $scope.setCookie = function(cname, cvalue) {
                 $cookies.put(cname, cvalue);
+                $scope.townSearch = "";
             };
             $scope.getCookie = function(cname) {
               if (cname !== 'favorite') {
