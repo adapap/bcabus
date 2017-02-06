@@ -91,7 +91,7 @@
                 if ($cookies.get(cname) === 'none') {
                   return true;
                 }
-                else if (typeof JSON.parse($cookies.get(cname)) !== 'object') { 
+                else if ($cookies.get(cname).substr(0,1) !== '[') { 
                   return false;
                 }
                 else {
@@ -208,7 +208,7 @@
             <!-- Cards for Large Screens -->
             <div ng-repeat="x in towns" class="col xl l4 m6 card white">
                 <div class="card-content black-text">
-                    <p>{{x}}</p><p>{{locations[$index] || "Not here"}}</p>
+                    <p>{{x.name}}</p><p>{{x.locations || "Not here yet"}}</p>
                 </div>
             </div>
         </div>
