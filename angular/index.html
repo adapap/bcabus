@@ -10,6 +10,10 @@
         var app = angular.module('myApp', ['ngCookies']);
         app.controller('SuperCtrl',function($scope, $http, $timeout, $cookies) {
             $scope.townSearch = "";
+            $scope.setCookie = function(cname, cvalue) {
+                $cookies.put(cname, cvalue);
+                $scope.townSearch = "";
+            };
             $scope.getData = function() {
                 //Sample: https://spreadsheets.google.com/feeds/list/1tJllDysWV5Xn9C7MKlVDttPXp2jXuQCYLP3jbf4FW28/od6/public/values?alt=json
                 //Real: https://spreadsheets.google.com/feeds/list/1S5v7kTbSiqV8GottWVi5tzpqLdTrEgWEY4ND4zvyV3o/od6/public/values?alt=json
@@ -38,18 +42,19 @@
                     $scope.towns = townsFirst.concat(townsSecond);
                     $scope.favorite = $scope.getCookie('favorite');
                     if ($scope.favorite !== false) {
-                      $scope.favoriteLocation = [];
+                      $scope.townNames = $scope.towns.map(function(e) { return e.name; });
                         for (i = 0; i < $scope.favorite.length; i++) {
-                            if ($scope.favorite[i].location !== '') {
-                                $scope.favoriteLocation[i] = $scope.favorite[i].location;
+                            $scope.favTemp = $scope.towns[$scope.townNames.indexOf($scope.favorite[i].name)].location;
+                            if ($scope.favTemp == "") {
+                              $scope.favorite[i].location = "Not here yet!";
                             }
-                            else {
-                                $scope.favoriteLocation[i] = "Not here yet!"
+                            else if ($scope.favTemp !== "") {
+                              $scope.favorite[i].location = $scope.favTemp;
                             }
                         }
+                        $scope.setCookie('favorite',JSON.stringify($scope.favorite));
                     }
-                    else if ($scope.favorite === false) { $scope.setCookie('favorite','none'); }
-                    else { $scope.favoriteLocation = []; }
+                    else { $scope.setCookie('favorite','none'); }
                 });
             }
             $scope.interval = function() {
@@ -79,10 +84,6 @@
                   $cookies.put('favorite','none');
                 }
             }
-            $scope.setCookie = function(cname, cvalue) {
-                $cookies.put(cname, cvalue);
-                $scope.townSearch = "";
-            };
             $scope.getCookie = function(cname) {
               if (cname !== 'favorite') {
                 return $cookies.get(cname);
