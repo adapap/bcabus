@@ -29,4 +29,10 @@ $(document).ready(function() {
     $closeMsg.click(function() {
         $madeBy.slideUp(100);
     })
+
+    $(".button-collapse").sideNav();
+    $('select').material_select();
+    $('input').change(function(){
+       $(this).removeClass('grey-text');
+    })
 })
