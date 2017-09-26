@@ -130,7 +130,7 @@
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-86115073-5', 'auto');ga('send', 'pageview');
 
-</script>
+    </script>
     <!-- Icon -->
     <link rel="icon" href="favicon.ico?" type="image/x-icon">
 
@@ -146,14 +146,46 @@
 <body class="blue lighten-5" ng-app="myApp" ng-controller="SuperCtrl">
     <head>
     <!-- Search -->
-    <nav class="mobile-content search-nav blue">
-    <div class="nav-wrapper">
+    <nav class="mobile-content search-nav blue row">
+    <div class="col s10 nav-wrapper">
         <form>
             <div class="input-field">
             <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autocomplete="off" ng-model="townSearch">
             <label for="search"><i class="material-icons">search</i></label>
             </div>
         </form>
+    </div>
+    <div class="col s1">
+        <ul id="slide-out" class="side-nav">
+            <li class="blue noti-title"><h5 class="white-text">SMS Notifications</h5></li>
+            <li class="center-align"><div class="switch"> <!--Enable/Disable Switch-->
+                <label class="black-text">Off<input type="checkbox">
+                <span class="lever"></span>On
+            </label>
+            </div></li>
+            <li class="anti-padding black-text"><div class="row">
+                <i class="material-icons input-icon col s2 blue-text">phone</i>
+                <input id="phone" value="e.g. (123) 456-7890" class="input-text col s8 grey-text" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/>
+            </div></li>
+            <li>
+                <i class="material-icons input-icon input-icon2 col s2 blue-text">tap_and_play</i>-->
+                <div class="input-field col s9">
+                <select id="service" class="black-text">
+                  <option value="" disabled selected>Select your service provider</option>
+                  <option value="att">AT&T</option>
+                  <option value="verizon">Verizon</option>
+                  <option value="tmobile">T-Mobile</option>
+                  <option value="sprint">Sprint</option>
+                  <option value="uscellular">U.S. Cellular</option>
+                </select>
+              </div>
+            </li>
+            <li class="center-align row"><a class="col s4 saveButton offset-s4 blue waves-effect btn">Save</a></li>
+            <li class="black-text row">
+                <p class="smsinfo col s11">**BCABus will send you an automated text message when a bus on your favorites list arrives. Standard message and data rates may apply.</p>
+            </li>
+        </ul>
+        <a href="#" data-activates="slide-out" class="button-collapse noti-icon"><i class="material-icons">textsms</i></a>
     </div>
     </nav>
     <!-- Large Header -->
@@ -163,7 +195,6 @@
         </div>
     </nav>
     </head>
-    
     <!-- Main Content: Made By & Towns -->
     <main>
 
@@ -270,6 +301,45 @@
             width: 100%;
             padding: 1% 0;
         }
+        .noti-icon {
+            left: -10px !important;
+        }
+        .noti-title {
+            padding: 8px;
+            margin-left: -10px;
+        }
+        .input-icon {
+            font-size: 2.3rem !important;
+        }
+        .input-icon2 {
+            margin-left: -8px !important;
+        }
+        .input-text {
+            margin-top: 5px !important;
+            margin-left: 8px !important;
+            height: 3rem !important;
+        }
+        .anti-padding {
+            margin-left: -10px !important;
+        }
+        .switch *, .lever * {
+            font-size: 1.3rem;
+        }
+        .smsinfo {
+            color: grey;
+            line-height: 1.2rem;
+        }
+        .saveButton {
+            height: 2.4rem !important;
+            line-height: 2.4rem !important;
+        }
+        .d {
+            border: 3px solid orange;
+        }
+        #slide-out {
+            padding-left: 10px;
+            width: 85%;
+        }
         @media only screen and (max-width: 768px) { /* Mobile */
             .not-mobile {
                 visibility: hidden;
@@ -298,4 +368,3 @@
     }
     </style>
 </html>
-
