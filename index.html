@@ -147,7 +147,7 @@
     <head>
     <!-- Search -->
     <nav class="mobile-content search-nav blue row">
-    <div class="col s10 nav-wrapper">
+    <div class="col s12 nav-wrapper">
         <form>
             <div class="input-field">
             <input class="left-align" id="search" type="search" placeholder="Search for towns here..." autocomplete="off" ng-model="townSearch">
@@ -155,10 +155,10 @@
             </div>
         </form>
     </div>
-    <div class="col s1">
+    <<!-- div class="col s1">
         <ul id="slide-out" class="side-nav">
             <li class="blue noti-title"><h5 class="white-text">SMS Notifications</h5></li>
-            <li class="center-align"><div class="switch"> <!--Enable/Disable Switch-->
+            <li class="center-align"><div class="switch"> Enable/Disable Switch
                 <label class="black-text">Off<input type="checkbox">
                 <span class="lever"></span>On
             </label>
@@ -168,7 +168,7 @@
                 <input id="phone" value="e.g. (123) 456-7890" class="input-text col s8 grey-text" onfocus="if(this.value==this.defaultValue)this.value='';" onblur="if(this.value=='')this.value=this.defaultValue;"/>
             </div></li>
             <li>
-                <i class="material-icons input-icon input-icon2 col s2 blue-text">tap_and_play</i>-->
+                <i class="material-icons input-icon input-icon2 col s2 blue-text">tap_and_play</i>
                 <div class="input-field col s9">
                 <select id="service" class="black-text">
                   <option value="" disabled selected>Select your service provider</option>
@@ -186,7 +186,7 @@
             </li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse noti-icon"><i class="material-icons">textsms</i></a>
-    </div>
+    </div> -->
     </nav>
     <!-- Large Header -->
     <nav class="not-mobile blue">
@@ -195,8 +195,12 @@
         </div>
     </nav>
     </head>
-    <!-- Main Content: Made By & Towns -->
+    <!-- Main Content: Made By & Towns (and Anniversary Banner) -->
     <main>
+        <div ng-if="getCookie('anniClose') != true" class="row pink lighten-4 anniversaryBanner">
+            <div class="col l10 m10 s10"><p>Happy 1 year anniversary of BCABus!</p></div>
+            <div class="col l1 m1 s1" ng-click="setCookie('anniClose', true)"><i class="material-icons anniIcon">close</i></div>
+        </div>
 
         <div class="row mobile-content" style="padding-top: 2%">
             <div class="col l12 m12 s12">
@@ -281,6 +285,14 @@
             display: flex;
             min-height: 100vh;
             flex-direction: column;
+        }
+        .anniversaryBanner {
+            margin-top: -1.4rem;
+            padding: none;
+            color: white;
+        }
+        .anniIcon {
+            margin-top: 0.8rem;
         }
         .closeMadeBy {
             padding-right: 1%;
