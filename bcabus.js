@@ -2,6 +2,7 @@ $(document).ready(function() {
     $favoriteList = $(".favoriteList");
     $madeBy = $(".madeBy");
     $closeMsg = $(".closeMadeBy");
+    $anni = $(".anniversaryBanner");
 
     function getCookie(name) {
         var dc = document.cookie;
@@ -25,9 +26,13 @@ $(document).ready(function() {
     if (favCookie === null) {
         Materialize.toast("Click the star to set a favorite town",6000);
     }
-    var closeCookie = getCookie("madeby");
+    /* var closeCookie = getCookie("madeby");
     $closeMsg.click(function() {
         $madeBy.slideUp(100);
+    }) */
+    
+    $anni.click(function() {
+        $anni.slideUp(100);
     })
 
     $(".button-collapse").sideNav();
